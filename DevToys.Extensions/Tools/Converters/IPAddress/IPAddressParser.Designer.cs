@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DevToys.Extensions.Tools.Converters.Chmod {
+namespace DevToys.Extensions.Tools.Converters.IPAddress {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ChmodCalculator {
+    internal class IPAddressParser {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ChmodCalculator() {
+        internal IPAddressParser() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevToys.Extensions.Tools.Converters.Chmod.ChmodCalculator", typeof(ChmodCalculator).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevToys.Extensions.Tools.Converters.IPAddress.IPAddressParser", typeof(IPAddressParser).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chmod Calculator.
+        ///   Looks up a localized string similar to IPAddress Convertor.
         /// </summary>
         internal static string AccessibleName {
             get {
@@ -70,7 +70,7 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chmod Calculator.
+        ///   Looks up a localized string similar to IPAddress Convertor.
         /// </summary>
         internal static string Description {
             get {
@@ -79,7 +79,16 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chmod Calculator.
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string InputTitle {
+            get {
+                return ResourceManager.GetString("InputTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IPAddress Convertor.
         /// </summary>
         internal static string LongDisplayTitle {
             get {
@@ -88,11 +97,38 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chmod.
+        ///   Looks up a localized string similar to Network Information.
+        /// </summary>
+        internal static string NetworkTitle {
+            get {
+                return ResourceManager.GetString("NetworkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        internal static string OutputTitle {
+            get {
+                return ResourceManager.GetString("OutputTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IPAddress.
         /// </summary>
         internal static string ShortDisplayTitle {
             get {
                 return ResourceManager.GetString("ShortDisplayTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network Subdivision.
+        /// </summary>
+        internal static string SubdivisionTitle {
+            get {
+                return ResourceManager.GetString("SubdivisionTitle", resourceCulture);
             }
         }
     }
