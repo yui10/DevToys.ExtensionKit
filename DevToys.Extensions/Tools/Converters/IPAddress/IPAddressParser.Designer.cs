@@ -131,5 +131,158 @@ namespace DevToys.Extensions.Tools.Converters.IPAddress {
                 return ResourceManager.GetString("SubdivisionTitle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid IP address: Input cannot be empty.
+        /// </summary>
+        internal static string ErrorEmptyInput {
+            get {
+                return ResourceManager.GetString("ErrorEmptyInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid IP address format: Must be in format xxx.xxx.xxx.xxx.
+        /// </summary>
+        internal static string ErrorInvalidIPFormat {
+            get {
+                return ResourceManager.GetString("ErrorInvalidIPFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: {0}.
+        /// </summary>
+        internal static string ErrorFormat {
+            get {
+                return ResourceManager.GetString("ErrorFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:#,##0} hosts.
+        /// </summary>
+        internal static string HostsCountFormat {
+            get {
+                return ResourceManager.GetString("HostsCountFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Network: {0}.
+        /// </summary>
+        internal static string CurrentNetworkFormat {
+            get {
+                return ResourceManager.GetString("CurrentNetworkFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If further subdivided:.
+        /// </summary>
+        internal static string IfFurtherSubdividedText {
+            get {
+                return ResourceManager.GetString("IfFurtherSubdividedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /{0}: {1} subnets ({2:#,##0} hosts each).
+        /// </summary>
+        internal static string SubnetInfoFormat {
+            get {
+                return ResourceManager.GetString("SubnetInfoFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        internal static string IPAddressTitle {
+            get {
+                return ResourceManager.GetString("IPAddressTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix Length.
+        /// </summary>
+        internal static string PrefixLengthTitle {
+            get {
+                return ResourceManager.GetString("PrefixLengthTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network Address.
+        /// </summary>
+        internal static string NetworkAddressTitle {
+            get {
+                return ResourceManager.GetString("NetworkAddressTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subnet Mask.
+        /// </summary>
+        internal static string SubnetMaskTitle {
+            get {
+                return ResourceManager.GetString("SubnetMaskTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broadcast Address.
+        /// </summary>
+        internal static string BroadcastAddressTitle {
+            get {
+                return ResourceManager.GetString("BroadcastAddressTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wildcard Mask.
+        /// </summary>
+        internal static string WildcardMaskTitle {
+            get {
+                return ResourceManager.GetString("WildcardMaskTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Host.
+        /// </summary>
+        internal static string FirstHostTitle {
+            get {
+                return ResourceManager.GetString("FirstHostTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Host.
+        /// </summary>
+        internal static string LastHostTitle {
+            get {
+                return ResourceManager.GetString("LastHostTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usable Hosts.
+        /// </summary>
+        internal static string UsableHostsTitle {
+            get {
+                return ResourceManager.GetString("UsableHostsTitle", resourceCulture);
+            }
+        }
     }
 }

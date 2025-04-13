@@ -141,4 +141,55 @@
   <data name="SubdivisionTitle" xml:space="preserve">
     <value>ネットワーク分割</value>
   </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="ErrorEmptyInput" xml:space="preserve">
+    <value>無効なIPアドレス: 入力が空です</value>
+  </data>
+  <data name="ErrorInvalidIPFormat" xml:space="preserve">
+    <value>無効なIPアドレス形式: ***.***.***.*** の形式である必要があります</value>
+  </data>
+  <data name="ErrorFormat" xml:space="preserve">
+    <value>エラー: {0}</value>
+  </data>
+  <data name="HostsCountFormat" xml:space="preserve">
+    <value>{0:#,##0} ホスト</value>
+  </data>
+  <data name="CurrentNetworkFormat" xml:space="preserve">
+    <value>現在のネットワーク: {0}</value>
+  </data>
+  <data name="IfFurtherSubdividedText" xml:space="preserve">
+    <value>さらに分割した場合:</value>
+  </data>
+  <data name="SubnetInfoFormat" xml:space="preserve">
+    <value> /{0}: {1}サブネット (各{2:#,##0}ホスト)</value>
+  </data>
+  <data name="IPAddressTitle" xml:space="preserve">
+    <value>IPアドレス</value>
+  </data>
+  <data name="PrefixLengthTitle" xml:space="preserve">
+    <value>プレフィックス長</value>
+  </data>
+  <data name="NetworkAddressTitle" xml:space="preserve">
+    <value>ネットワークアドレス</value>
+  </data>
+  <data name="SubnetMaskTitle" xml:space="preserve">
+    <value>サブネットマスク</value>
+  </data>
+  <data name="BroadcastAddressTitle" xml:space="preserve">
+    <value>ブロードキャストアドレス</value>
+  </data>
+  <data name="WildcardMaskTitle" xml:space="preserve">
+    <value>ワイルドカードマスク</value>
+  </data>
+  <data name="FirstHostTitle" xml:space="preserve">
+    <value>最初のホスト</value>
+  </data>
+  <data name="LastHostTitle" xml:space="preserve">
+    <value>最後のホスト</value>
+  </data>
+  <data name="UsableHostsTitle" xml:space="preserve">
+    <value>使用可能なホスト数</value>
+  </data>
 </root>

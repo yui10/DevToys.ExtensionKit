@@ -141,4 +141,55 @@
   <data name="SubdivisionTitle" xml:space="preserve">
     <value>Network Subdivision</value>
   </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorEmptyInput" xml:space="preserve">
+    <value>Invalid IP address: Input cannot be empty</value>
+  </data>
+  <data name="ErrorInvalidIPFormat" xml:space="preserve">
+    <value>Invalid IP address format: Must be in format ***.***.***.***</value>
+  </data>
+  <data name="ErrorFormat" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="HostsCountFormat" xml:space="preserve">
+    <value>{0:#,##0} hosts</value>
+  </data>
+  <data name="CurrentNetworkFormat" xml:space="preserve">
+    <value>Current Network: {0}</value>
+  </data>
+  <data name="IfFurtherSubdividedText" xml:space="preserve">
+    <value>If further subdivided:</value>
+  </data>
+  <data name="SubnetInfoFormat" xml:space="preserve">
+    <value> /{0}: {1} subnets ({2:#,##0} hosts each)</value>
+  </data>
+  <data name="IPAddressTitle" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="PrefixLengthTitle" xml:space="preserve">
+    <value>Prefix Length</value>
+  </data>
+  <data name="NetworkAddressTitle" xml:space="preserve">
+    <value>Network Address</value>
+  </data>
+  <data name="SubnetMaskTitle" xml:space="preserve">
+    <value>Subnet Mask</value>
+  </data>
+  <data name="BroadcastAddressTitle" xml:space="preserve">
+    <value>Broadcast Address</value>
+  </data>
+  <data name="WildcardMaskTitle" xml:space="preserve">
+    <value>Wildcard Mask</value>
+  </data>
+  <data name="FirstHostTitle" xml:space="preserve">
+    <value>First Host</value>
+  </data>
+  <data name="LastHostTitle" xml:space="preserve">
+    <value>Last Host</value>
+  </data>
+  <data name="UsableHostsTitle" xml:space="preserve">
+    <value>Usable Hosts</value>
+  </data>
 </root>

@@ -4,62 +4,62 @@ using System.Net;
 namespace DevToys.Extensions.Models;
 
 /// <summary>
-/// 統合されたネットワーク情報を表すクラス（CIDRとサブネット情報の両方を含む）
+/// A class representing integrated network information (including both CIDR and subnet information)
 /// </summary>
 public class NetworkInfo
 {
     /// <summary>
-    /// IPアドレス
+    /// IP Address
     /// </summary>
     public IPAddress IPAddress { get; }
 
     /// <summary>
-    /// サブネットマスク
+    /// Subnet Mask
     /// </summary>
     public IPAddress SubnetMask { get; }
 
     /// <summary>
-    /// プレフィックス長（CIDR表記）
+    /// Prefix Length (CIDR notation)
     /// </summary>
     public int PrefixLength { get; }
 
     /// <summary>
-    /// ネットワークアドレス
+    /// Network Address
     /// </summary>
     public IPAddress NetworkAddress { get; }
 
     /// <summary>
-    /// ブロードキャストアドレス
+    /// Broadcast Address
     /// </summary>
     public IPAddress BroadcastAddress { get; }
 
     /// <summary>
-    /// 最初の使用可能ホスト
+    /// First Usable Host
     /// </summary>
     public IPAddress FirstUsableHost { get; }
 
     /// <summary>
-    /// 最後の使用可能ホスト
+    /// Last Usable Host
     /// </summary>
     public IPAddress LastUsableHost { get; }
 
     /// <summary>
-    /// ワイルドカードマスク
+    /// Wildcard Mask
     /// </summary>
     public IPAddress WildcardMask { get; }
 
     /// <summary>
-    /// IPアドレスとプレフィックス長から新しいNetworkInfoを作成
+    /// Create a new NetworkInfo from an IP Address and prefix length
     /// </summary>
-    /// <param name="ipAddress">IPアドレス</param>
-    /// <param name="prefixLength">プレフィックス長（0-32）</param>
+    /// <param name="ipAddress">IP Address</param>
+    /// <param name="prefixLength">Prefix Length (0-32)</param>
     public NetworkInfo(IPAddress ipAddress, int prefixLength)
     {
         if (ipAddress == null)
             throw new ArgumentNullException(nameof(ipAddress));
 
         if (prefixLength < 0 || prefixLength > 32)
-            throw new ArgumentException("プレフィックス長は0から32の間である必要があります", nameof(prefixLength));
+            throw new ArgumentException("Prefix length must be between 0 and 32", nameof(prefixLength));
 
         IPAddress = ipAddress;
         PrefixLength = prefixLength;
@@ -69,7 +69,7 @@ public class NetworkInfo
         var ipBytes = ipAddress.GetAddressBytes();
         var maskBytes = SubnetMask.GetAddressBytes();
 
-        // ネットワークアドレスを計算
+        // Calculate network address
         var networkBytes = new byte[4];
         for (int i = 0; i < 4; i++)
         {
@@ -77,7 +77,7 @@ public class NetworkInfo
         }
         NetworkAddress = new IPAddress(networkBytes);
 
-        // ブロードキャストアドレスを計算
+        // Calculate broadcast address
         var wildcardBytes = WildcardMask.GetAddressBytes();
         var broadcastBytes = new byte[4];
         for (int i = 0; i < 4; i++)
@@ -86,11 +86,11 @@ public class NetworkInfo
         }
         BroadcastAddress = new IPAddress(broadcastBytes);
 
-        // 最初と最後のホストアドレスを計算
+        // Calculate first and last host addresses
         var firstHostBytes = (byte[])networkBytes.Clone();
         var lastHostBytes = (byte[])broadcastBytes.Clone();
 
-        // サブネットが/31または/32の場合の特別な処理
+        // Special handling for /31 and /32 subnets
         if (prefixLength < 31)
         {
             firstHostBytes[3] = (byte)(firstHostBytes[3] + 1);
@@ -102,20 +102,20 @@ public class NetworkInfo
     }
 
     /// <summary>
-    /// IPアドレスとサブネットマスクから新しいNetworkInfoを作成
+    /// Create a new NetworkInfo from an IP Address and Subnet Mask
     /// </summary>
-    /// <param name="ipAddress">IPアドレス</param>
-    /// <param name="subnetMask">サブネットマスク</param>
+    /// <param name="ipAddress">IP Address</param>
+    /// <param name="subnetMask">Subnet Mask</param>
     public NetworkInfo(IPAddress ipAddress, IPAddress subnetMask)
         : this(ipAddress, CalculatePrefixLength(subnetMask))
     {
     }
 
     /// <summary>
-    /// CIDR表記文字列（例："192.168.1.0/24"）からNetworkInfoを作成
+    /// Create a NetworkInfo from CIDR notation (e.g. "192.168.1.0/24")
     /// </summary>
-    /// <param name="cidrNotation">CIDR表記文字列</param>
-    /// <returns>NetworkInfoインスタンス</returns>
+    /// <param name="cidrNotation">CIDR notation string</param>
+    /// <returns>NetworkInfo object</returns>
     public static NetworkInfo FromCidr(string cidrNotation)
     {
         if (string.IsNullOrEmpty(cidrNotation))
@@ -135,37 +135,37 @@ public class NetworkInfo
     }
 
     /// <summary>
-    /// CIDR表記を文字列として返す
+    /// Get the CIDR notation string (e.g. "192.168.1.0/24")
     /// </summary>
-    /// <returns>CIDR表記文字列（例："192.168.1.0/24"）</returns>
+    /// <returns>CIDR notation string</returns>
     public string ToCidrString()
     {
         return $"{NetworkAddress}/{PrefixLength}";
     }
 
     /// <summary>
-    /// サブネットサイズ（使用可能なIPアドレスの数）を取得
+    /// Get the total number of addresses in this subnet (including network and broadcast addresses)
     /// </summary>
-    /// <returns>サブネット内のIPアドレス総数</returns>
+    /// <returns>Size of subnet</returns>
     public long GetSubnetSize()
     {
         return (long)Math.Pow(2, 32 - PrefixLength);
     }
 
     /// <summary>
-    /// 使用可能なホストアドレスの数を取得
+    /// Get the number of usable host addresses in this subnet
     /// </summary>
-    /// <returns>使用可能なホストアドレスの数</returns>
+    /// <returns>Number of usable host addresses</returns>
     public long GetUsableHostsCount()
     {
-        if (PrefixLength >= 31) // /31と/32は特殊ケース
+        if (PrefixLength >= 31) // /31 and /32 are special cases
             return PrefixLength == 31 ? 2 : 1;
 
-        return GetSubnetSize() - 2; // ネットワークアドレスとブロードキャストアドレスを除く
+        return GetSubnetSize() - 2; // Exclude network and broadcast addresses
     }
 
     /// <summary>
-    /// プレフィックス長からサブネットマスクを作成
+    /// Create a subnet mask from prefix length
     /// </summary>
     private static IPAddress CreateSubnetMask(int prefixLength)
     {
@@ -189,7 +189,7 @@ public class NetworkInfo
     }
 
     /// <summary>
-    /// サブネットマスクからワイルドカードマスクを作成
+    /// Create a wildcard mask from subnet mask
     /// </summary>
     private static IPAddress CreateWildcardMask(IPAddress subnetMask)
     {
@@ -205,7 +205,7 @@ public class NetworkInfo
     }
 
     /// <summary>
-    /// サブネットマスクからプレフィックス長を計算
+    /// Calculate prefix length from subnet mask
     /// </summary>
     private static int CalculatePrefixLength(IPAddress subnetMask)
     {
@@ -221,7 +221,7 @@ public class NetworkInfo
     }
 
     /// <summary>
-    /// バイト内の1のビット数をカウント
+    /// Count the number of 1 bits in a byte
     /// </summary>
     private static int CountBits(byte b)
     {
@@ -237,9 +237,9 @@ public class NetworkInfo
     }
 
     /// <summary>
-    /// オブジェクトの文字列表現を返す
+    /// Get a string representation of this network information
     /// </summary>
-    /// <returns>文字列形式のネットワーク情報 (例：192.168.1.0/24 (255.255.255.0))</returns>
+    /// <returns>String representation (ex: "192.168.1.0/24 (255.255.255.0)")</returns>
     public override string ToString()
     {
         return $"{NetworkAddress}/{PrefixLength} ({SubnetMask})";

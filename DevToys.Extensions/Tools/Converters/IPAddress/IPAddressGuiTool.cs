@@ -95,7 +95,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                 Cell(
                     GridRow.Settings,
                     GridColumn.Stretch,
-                    _errorInfoBar.Title("Error").Error()
+                    _errorInfoBar.Title(IPAddressParser.ErrorTitle).Error()
                 ),
                 Cell(
                     GridRow.Inputs,
@@ -109,11 +109,11 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                                     .Horizontal()
                                     .LargeSpacing()
                                     .WithChildren(
-                                        _ipAddressText.Title("IP Address")
+                                        _ipAddressText.Title(IPAddressParser.IPAddressTitle)
                                             .OnTextChanged(OnIPAddressChanged),
                                         Label().Style(UILabelStyle.BodyStrong).Text("\n/"),
                                         _subnetMaskNumber
-                                            .Title("Prefix Length")
+                                            .Title(IPAddressParser.PrefixLengthTitle)
                                             .Minimum(1)
                                             .Maximum(32)
                                             .Step(1)
@@ -167,22 +167,22 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                 Cell(
                     OutputGridRow.NetworkInfo,
                     OutputGridColumn.Left,
-                    _networkAddressText.Title("Network Address").ReadOnly()
+                    _networkAddressText.Title(IPAddressParser.NetworkAddressTitle).ReadOnly()
                 ),
                 Cell(
                     OutputGridRow.NetworkInfo,
                     OutputGridColumn.Right,
-                    _subnetMaskText.Title("Subnet Mask").ReadOnly()
+                    _subnetMaskText.Title(IPAddressParser.SubnetMaskTitle).ReadOnly()
                 ),
                 Cell(
                     OutputGridRow.BroadcastInfo,
                     OutputGridColumn.Left,
-                    _broadcastAddressText.Title("Broadcast Address").ReadOnly()
+                    _broadcastAddressText.Title(IPAddressParser.BroadcastAddressTitle).ReadOnly()
                 ),
                 Cell(
                     OutputGridRow.BroadcastInfo,
                     OutputGridColumn.Right,
-                    _wildcardMaskText.Title("Wildcard Mask").ReadOnly()
+                    _wildcardMaskText.Title(IPAddressParser.WildcardMaskTitle).ReadOnly()
                 ),
                 Cell(
                     OutputGridRow.HostRange,
@@ -191,15 +191,15 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                         .Horizontal()
                         .LargeSpacing()
                         .WithChildren(
-                            _firstUsableHostText.Title("First Host").ReadOnly(),
+                            _firstUsableHostText.Title(IPAddressParser.FirstHostTitle).ReadOnly(),
                             Label().Style(UILabelStyle.BodyStrong).Text("\n~"),
-                            _lastUsableHostText.Title("Last Host").ReadOnly()
+                            _lastUsableHostText.Title(IPAddressParser.LastHostTitle).ReadOnly()
                         )
                 ),
                 Cell(
                     OutputGridRow.UsableHosts,
                     OutputGridColumn.Left,
-                    _usableHostsCountText.Title("Usable Hosts").ReadOnly()
+                    _usableHostsCountText.Title(IPAddressParser.UsableHostsTitle).ReadOnly()
                 )
             );
 
@@ -212,14 +212,14 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     {
         if (string.IsNullOrEmpty(value))
         {
-            _errorInfoBar.Description("Invalid IP address: Input cannot be empty");
+            _errorInfoBar.Description(IPAddressParser.ErrorEmptyInput);
             _errorInfoBar.Open();
             return;
         }
 
         if (!netIPAddress.TryParse(value, out netIPAddress? ipAddress))
         {
-            _errorInfoBar.Description("Invalid IP address format: Must be in format xxx.xxx.xxx.xxx");
+            _errorInfoBar.Description(IPAddressParser.ErrorInvalidIPFormat);
             _errorInfoBar.Open();
             return;
         }
@@ -242,7 +242,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         {
             int prefixLength = (int)_subnetMaskNumber.Value;
             
-            // 直接NetworkInfoオブジェクトを作成する
+            // Create NetworkInfo object
             NetworkInfo networkInfo = new NetworkInfo(ipAddress, prefixLength);
             
             // Display calculation results in UI
@@ -255,7 +255,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
             
             // Usable hosts
             long usableHosts = networkInfo.GetUsableHostsCount();
-            _usableHostsCountText.Text($"{usableHosts:#,##0} hosts");
+            _usableHostsCountText.Text(string.Format(IPAddressParser.HostsCountFormat, usableHosts));
             
             // Network subdivision information
             GenerateNetworkSubdivisionInfo(networkInfo);
@@ -265,7 +265,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         }
         catch (Exception ex)
         {
-            _errorInfoBar.Description($"Error: {ex.Message}");
+            _errorInfoBar.Description(string.Format(IPAddressParser.ErrorFormat, ex.Message));
             _errorInfoBar.Open();
             _logger.LogError(ex, "Error occurred during IP address calculation");
         }
@@ -276,12 +276,12 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         var subdivisionText = new System.Text.StringBuilder();
         
         // Current network and subnet mask
-        subdivisionText.AppendLine($"Current Network: {networkInfo.ToCidrString()}");
+        subdivisionText.AppendLine(string.Format(IPAddressParser.CurrentNetworkFormat, networkInfo.ToCidrString()));
         
         // Add subnet information for further dividing this network
         if (networkInfo.PrefixLength < 30) // Show subdivision info for prefix lengths less than /30
         {
-            subdivisionText.AppendLine("\nIf further subdivided:");
+            subdivisionText.AppendLine("\n" + IPAddressParser.IfFurtherSubdividedText);
             
             for (int i = 1; i <= Math.Min(3, 32 - networkInfo.PrefixLength); i++)
             {
@@ -291,7 +291,8 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                 
                 if (hostsPerSubnet < 0) hostsPerSubnet = 1; // Special cases for /31 and /32
                 
-                subdivisionText.AppendLine($" /{newPrefixLength}: {subnetCount} subnets ({hostsPerSubnet:#,##0} hosts each)");
+                subdivisionText.AppendLine(string.Format(IPAddressParser.SubnetInfoFormat, 
+                    newPrefixLength, subnetCount, hostsPerSubnet));
             }
         }
         
