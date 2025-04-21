@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 
 namespace DevToys.Extensions.Models;
@@ -162,6 +161,43 @@ public class NetworkInfo
             return PrefixLength == 31 ? 2 : 1;
 
         return GetSubnetSize() - 2; // Exclude network and broadcast addresses
+    }
+
+    /// <summary>
+    /// Get a list of subnets based on the subdivision count
+    /// </summary>
+    /// <param name="subdivisionCount">The number of subdivisions</param>
+    /// <returns>A list of NetworkInfo objects representing the subnets</returns>
+    public List<NetworkInfo> GetSubnet(int subdivisionCount)
+    {
+        if (subdivisionCount <= 0 || PrefixLength + Math.Log2(subdivisionCount) > 32)
+        {
+            throw new ArgumentException("Invalid subdivision count", nameof(subdivisionCount));
+        }
+
+        int newPrefixLength = PrefixLength + (int)Math.Log2(subdivisionCount);
+        long subnetSize = (long)Math.Pow(2, 32 - newPrefixLength);
+
+        var subnets = new List<NetworkInfo>();
+        byte[] networkBytes = NetworkAddress.GetAddressBytes();
+        long networkBase = BitConverter.ToUInt32(networkBytes.Reverse().ToArray(), 0);
+
+        for (int i = 0; i < subdivisionCount; i++)
+        {
+            long subnetBase = networkBase + (i * subnetSize);
+
+            if (subnetBase < 0 || subnetBase > 0xFFFFFFFF)
+            {
+                throw new ArgumentException("Calculated subnet base is out of valid IP address range.", nameof(subdivisionCount));
+            }
+
+            byte[] subnetBytes = BitConverter.GetBytes((uint)subnetBase).Reverse().ToArray();
+            IPAddress subnetAddress = new IPAddress(subnetBytes);
+
+            subnets.Add(new NetworkInfo(subnetAddress, newPrefixLength));
+        }
+
+        return subnets;
     }
 
     /// <summary>

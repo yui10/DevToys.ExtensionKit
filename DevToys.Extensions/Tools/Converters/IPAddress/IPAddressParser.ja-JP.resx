@@ -192,4 +192,7 @@
   <data name="UsableHostsTitle" xml:space="preserve">
     <value>使用可能なホスト数</value>
   </data>
+  <data name="SubdivisionCountTitle" xml:space="preserve">
+    <value>分割数</value>
+  </data>
 </root>

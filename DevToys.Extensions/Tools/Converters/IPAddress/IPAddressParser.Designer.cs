@@ -133,6 +133,15 @@ namespace DevToys.Extensions.Tools.Converters.IPAddress {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Subdivision Count.
+        /// </summary>
+        internal static string SubdivisionCountTitle {
+            get {
+                return ResourceManager.GetString("SubdivisionCountTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ErrorTitle {

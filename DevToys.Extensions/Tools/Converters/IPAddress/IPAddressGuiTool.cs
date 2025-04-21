@@ -8,7 +8,7 @@ namespace DevToys.Extensions.Tools.Converters.IPAddress;
 [Name("IPAddress")]
 [ToolDisplayInformation(
     IconFontName = "FluentSystemIcons",
-    IconGlyph = '\uF33A',
+    IconGlyph = '\uEE22',
     GroupName = PredefinedCommonToolGroupNames.Converters,
     ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionsResourceManagerAssemblyIdentifier),
     ResourceManagerBaseName = "DevToys.Extensions.Tools.Converters.IPAddress.IPAddressParser",
@@ -52,6 +52,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     // Input fields
     private readonly IUISingleLineTextInput _ipAddressText = SingleLineTextInput("ip-address");
     private readonly IUINumberInput _subnetMaskNumber = NumberInput("subnet-mask");
+    private readonly IUISelectDropDownList _subdivisionCountInput = SelectDropDownList("subdivision-count");
 
     // Output fields
     private readonly IUISingleLineTextInput _networkAddressText = SingleLineTextInput("network-address");
@@ -62,6 +63,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     private readonly IUISingleLineTextInput _subnetMaskText = SingleLineTextInput("subnet-mask-text");
     private readonly IUISingleLineTextInput _usableHostsCountText = SingleLineTextInput("usable-hosts-count");
     private readonly IUILabel _networkSubdivisionLabel = Label("network-subdivision");
+    private readonly IUILabel _subnetResultsLabel = Label("subnet-results");
 
     [ImportingConstructor]
     public IPAddressGuiTool(ISettingsProvider settingsProvider)
@@ -72,7 +74,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         // Set default values
         _ipAddressText.Text("192.168.1.1");
         _subnetMaskNumber.Value(24);
-        
+
         // Initial display
         if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? ipAddress))
         {
@@ -117,7 +119,19 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                                             .Minimum(1)
                                             .Maximum(32)
                                             .Step(1)
-                                            .OnValueChanged(OnSubnetMaskNumberChanged)
+                                            .OnValueChanged(OnSubnetMaskNumberChanged),
+                                        _subdivisionCountInput
+                                            .Title(IPAddressParser.SubdivisionCountTitle)
+                                            .WithItems(
+                                                Item(text: "1", value: 1),
+                                                Item(text: "2", value: 2),
+                                                Item(text: "4", value: 4),
+                                                Item(text: "8", value: 8),
+                                                Item(text: "16", value: 16),
+                                                Item(text: "32", value: 32)
+                                            )
+                                            .OnItemSelected(OnItemSelected)
+                                            .Select(0)
                                     )
                             )
                     )
@@ -142,7 +156,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                             .Vertical()
                             .WithChildren(
                                 Label().Text(IPAddressParser.SubdivisionTitle).Style(UILabelStyle.Subtitle),
-                                _networkSubdivisionLabel.Style(UILabelStyle.Body)
+                                _subnetResultsLabel.Style(UILabelStyle.Body)
                             )
                     )
                 )
@@ -227,9 +241,22 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         _errorInfoBar.Close();
         StartIPAddressConvert(ipAddress);
     }
-    
+
     private void OnSubnetMaskNumberChanged(double value)
     {
+        if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? _ipAddress))
+        {
+            StartIPAddressConvert(_ipAddress);
+        }
+    }
+
+    private void OnItemSelected(IUIDropDownListItem? selectedItem)
+    {
+        if (selectedItem == null)
+        {
+            return;
+        }
+
         if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? _ipAddress))
         {
             StartIPAddressConvert(_ipAddress);
@@ -240,11 +267,12 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     {
         try
         {
+            _logger.LogInformation("Starting IP address conversion for: {IPAddress}", ipAddress);
             int prefixLength = (int)_subnetMaskNumber.Value;
-            
+
             // Create NetworkInfo object
             NetworkInfo networkInfo = new NetworkInfo(ipAddress, prefixLength);
-            
+
             // Display calculation results in UI
             _networkAddressText.Text(networkInfo.NetworkAddress.ToString());
             _broadcastAddressText.Text(networkInfo.BroadcastAddress.ToString());
@@ -252,51 +280,54 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
             _lastUsableHostText.Text(networkInfo.LastUsableHost.ToString());
             _wildcardMaskText.Text(networkInfo.WildcardMask.ToString());
             _subnetMaskText.Text(networkInfo.SubnetMask.ToString());
-            
+
             // Usable hosts
             long usableHosts = networkInfo.GetUsableHostsCount();
             _usableHostsCountText.Text(string.Format(IPAddressParser.HostsCountFormat, usableHosts));
-            
+
             // Network subdivision information
             GenerateNetworkSubdivisionInfo(networkInfo);
-            
-            _logger.LogInformation("Completed processing for IP address {IPAddress} with prefix length {PrefixLength}", 
+
+            _logger.LogInformation("Completed processing for IP address {IPAddress} with prefix length {PrefixLength}",
                 ipAddress, prefixLength);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error occurred during IP address calculation for: {IPAddress}", ipAddress);
             _errorInfoBar.Description(string.Format(IPAddressParser.ErrorFormat, ex.Message));
             _errorInfoBar.Open();
-            _logger.LogError(ex, "Error occurred during IP address calculation");
         }
     }
-    
+
     private void GenerateNetworkSubdivisionInfo(NetworkInfo networkInfo)
     {
         var subdivisionText = new System.Text.StringBuilder();
-        
+
         // Current network and subnet mask
         subdivisionText.AppendLine(string.Format(IPAddressParser.CurrentNetworkFormat, networkInfo.ToCidrString()));
-        
+
         // Add subnet information for further dividing this network
-        if (networkInfo.PrefixLength < 30) // Show subdivision info for prefix lengths less than /30
+        var selectedItem = _subdivisionCountInput.SelectedItem;
+        if (selectedItem == null)
+        {
+            return;
+        }
+        if (!int.TryParse(selectedItem.Value?.ToString(), out int subdivisionCount))
+        {
+            return;
+        }
+        if (networkInfo.PrefixLength + Math.Log2(subdivisionCount) <= 32)
         {
             subdivisionText.AppendLine("\n" + IPAddressParser.IfFurtherSubdividedText);
-            
-            for (int i = 1; i <= Math.Min(3, 32 - networkInfo.PrefixLength); i++)
+
+            var subnets = networkInfo.GetSubnet(subdivisionCount);
+            foreach (var subnet in subnets)
             {
-                int newPrefixLength = networkInfo.PrefixLength + i;
-                int subnetCount = (int)Math.Pow(2, i);
-                long hostsPerSubnet = (long)Math.Pow(2, 32 - newPrefixLength) - 2;
-                
-                if (hostsPerSubnet < 0) hostsPerSubnet = 1; // Special cases for /31 and /32
-                
-                subdivisionText.AppendLine(string.Format(IPAddressParser.SubnetInfoFormat, 
-                    newPrefixLength, subnetCount, hostsPerSubnet));
+                subdivisionText.AppendLine(string.Format("{0}/{1} ({2})", subnet.NetworkAddress, subnet.PrefixLength, subnet.SubnetMask));
             }
         }
-        
-        _networkSubdivisionLabel.Text(subdivisionText.ToString());
+
+        _subnetResultsLabel.Text(subdivisionText.ToString());
     }
 }
 

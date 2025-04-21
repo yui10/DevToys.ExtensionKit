@@ -192,4 +192,7 @@
   <data name="UsableHostsTitle" xml:space="preserve">
     <value>Usable Hosts</value>
   </data>
+  <data name="SubdivisionCountTitle" xml:space="preserve">
+    <value>Subdivision Count</value>
+  </data>
 </root>
