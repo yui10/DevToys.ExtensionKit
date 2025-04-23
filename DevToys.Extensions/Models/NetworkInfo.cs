@@ -186,7 +186,7 @@ public class NetworkInfo
         {
             long subnetBase = networkBase + (i * subnetSize);
 
-            if (subnetBase < 0 || subnetBase > 0xFFFFFFFF)
+            if (subnetBase > 0xFFFFFFFF)
             {
                 throw new ArgumentException("Calculated subnet base is out of valid IP address range.", nameof(subdivisionCount));
             }
