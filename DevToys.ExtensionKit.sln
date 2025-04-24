@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevToys.ExtensionKit", "DevToys.Extensions\DevToys.ExtensionKit.csproj", "{7EF29370-4AF0-4418-AADB-119FCD6843E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevToys.ExtensionKit", "DevToys.ExtensionKit\DevToys.ExtensionKit.csproj", "{7EF29370-4AF0-4418-AADB-119FCD6843E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevToys.ExtensionKit.Tests", "DevToys.Extensions.Tests\DevToys.ExtensionKit.Tests.csproj", "{94821F64-FB0D-E34C-6AC4-2964691E7B5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevToys.ExtensionKit.Tests", "DevToys.ExtensionKit.Tests\DevToys.ExtensionKit.Tests.csproj", "{94821F64-FB0D-E34C-6AC4-2964691E7B5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
