@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using netIPAddress = System.Net.IPAddress;
-using DevToys.Extensions.Models;
+using DevToys.ExtensionKit.Models;
 
-namespace DevToys.Extensions.Tools.Converters.IPAddress;
+namespace DevToys.ExtensionKit.Tools.Converters.IPAddress;
 
 [Export(typeof(IGuiTool))]
 [Name("IPAddress")]
@@ -10,8 +10,8 @@ namespace DevToys.Extensions.Tools.Converters.IPAddress;
     IconFontName = "FluentSystemIcons",
     IconGlyph = '\uEE22',
     GroupName = PredefinedCommonToolGroupNames.Converters,
-    ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionsResourceManagerAssemblyIdentifier),
-    ResourceManagerBaseName = "DevToys.Extensions.Tools.Converters.IPAddress.IPAddressParser",
+    ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionKitResourceManagerAssemblyIdentifier),
+    ResourceManagerBaseName = "DevToys.ExtensionKit.Tools.Converters.IPAddress.IPAddressParser",
     ShortDisplayTitleResourceName = nameof(IPAddressParser.ShortDisplayTitle),
     LongDisplayTitleResourceName = nameof(IPAddressParser.LongDisplayTitle),
     DescriptionResourceName = nameof(IPAddressParser.Description),

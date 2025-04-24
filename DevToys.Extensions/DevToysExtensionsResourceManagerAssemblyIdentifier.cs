@@ -1,8 +1,8 @@
-﻿namespace DevToys.Extensions;
+﻿namespace DevToys.ExtensionKit;
 
 [Export(typeof(IResourceAssemblyIdentifier))]
-[Name(nameof(DevToysExtensionsResourceManagerAssemblyIdentifier))]
-internal sealed class DevToysExtensionsResourceManagerAssemblyIdentifier : IResourceAssemblyIdentifier
+[Name(nameof(DevToysExtensionKitResourceManagerAssemblyIdentifier))]
+internal sealed class DevToysExtensionKitResourceManagerAssemblyIdentifier : IResourceAssemblyIdentifier
 {
     public ValueTask<FontDefinition[]> GetFontDefinitionsAsync()
     {

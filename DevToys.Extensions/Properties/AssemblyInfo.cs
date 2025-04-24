@@ -6,4 +6,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: InternalsVisibleTo("DevToys.Extensions.Tests")]
+[assembly: InternalsVisibleTo("DevToys.ExtensionKit.Tests")]

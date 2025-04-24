@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace DevToys.Extensions.Models;
+namespace DevToys.ExtensionKit.Models;
 
 /// <summary>
 /// A class representing integrated network information (including both CIDR and subnet information)

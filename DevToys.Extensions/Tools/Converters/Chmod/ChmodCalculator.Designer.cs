@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DevToys.Extensions.Tools.Converters.Chmod {
+namespace DevToys.ExtensionKit.Tools.Converters.Chmod {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DevToys.Extensions.Tools.Converters.Chmod {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevToys.Extensions.Tools.Converters.Chmod.ChmodCalculator", typeof(ChmodCalculator).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevToys.ExtensionKit.Tools.Converters.Chmod.ChmodCalculator", typeof(ChmodCalculator).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

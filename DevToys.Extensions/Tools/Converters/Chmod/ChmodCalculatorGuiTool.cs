@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace DevToys.Extensions.Tools.Converters.Chmod;
+namespace DevToys.ExtensionKit.Tools.Converters.Chmod;
 [Export(typeof(IGuiTool))]
 [Name("Chmod")]
 [ToolDisplayInformation(
     IconFontName = "FluentSystemIcons",
     IconGlyph = '\uF33A',
     GroupName = PredefinedCommonToolGroupNames.Converters,
-    ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionsResourceManagerAssemblyIdentifier),
-    ResourceManagerBaseName = "DevToys.Extensions.Tools.Converters.Chmod.ChmodCalculator",
+    ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionKitResourceManagerAssemblyIdentifier),
+    ResourceManagerBaseName = "DevToys.ExtensionKit.Tools.Converters.Chmod.ChmodCalculator",
     ShortDisplayTitleResourceName = nameof(ChmodCalculator.ShortDisplayTitle),
     LongDisplayTitleResourceName = nameof(ChmodCalculator.LongDisplayTitle),
     DescriptionResourceName = nameof(ChmodCalculator.Description),
