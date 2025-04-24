@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <SignAssembly>False</SignAssembly>
-    <Title>DevToys.Extensions</Title>
+    <Title>DevToys.ExtensionKit</Title>
     <AssemblyVersion>1.0.0</AssemblyVersion>
   </PropertyGroup>
 
@@ -14,17 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Tools\Converters\Chmod\ChmodCalculator.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ChmodCalculator.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Tools\Converters\Chmod\ChmodCalculator.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ChmodCalculator.Designer.cs</LastGenOutput>
+      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
 

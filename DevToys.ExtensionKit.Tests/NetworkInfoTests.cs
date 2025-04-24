@@ -1,9 +1,9 @@
-using DevToys.Extensions.Models;
+using DevToys.ExtensionKit.Models;
 using System;
 using System.Net;
 using Xunit;
 
-namespace DevToys.Extensions.Tests;
+namespace DevToys.ExtensionKit.Tests;
 
 public class NetworkInfoTests
 {    

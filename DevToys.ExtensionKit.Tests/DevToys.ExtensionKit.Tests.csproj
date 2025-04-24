@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DevToys.Extensions\DevToys.Extensions.csproj" />
+    <ProjectReference Include="..\DevToys.ExtensionKit\DevToys.ExtensionKit.csproj" />
   </ItemGroup>
 
   <ItemGroup>

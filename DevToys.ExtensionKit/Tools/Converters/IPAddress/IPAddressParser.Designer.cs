@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DevToys.Extensions.Tools.Converters.IPAddress {
+namespace DevToys.ExtensionKit.Tools.Converters.IPAddress {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DevToys.Extensions.Tools.Converters.IPAddress {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevToys.Extensions.Tools.Converters.IPAddress.IPAddressParser", typeof(IPAddressParser).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DevToys.ExtensionKit.Tools.Converters.IPAddress.IPAddressParser", typeof(IPAddressParser).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

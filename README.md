@@ -1,1 +1,1 @@
-# DevToys.Extensions
+# DevToys.ExtensionKit
