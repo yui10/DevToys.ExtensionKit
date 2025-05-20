@@ -103,9 +103,8 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     Stack()
                         .Vertical()
                         .WithChildren(
-                            Card(InputsGrid()),
-                            FileNameText
-                                .Title("file name")
+                            Card(InputsGrid()),                            FileNameText
+                                .Title(ChmodCalculator.FileName)
                                 .OnTextChanged(OnTextChanged)
                         )
                 ),
@@ -119,16 +118,16 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                                 .Rows(new UIGridLength(1, UIGridUnitType.Auto))
                                 .Columns(3)
                                 .Cells(
-                                    Cell(0, 1, 1, 1, Label().Text("Permission").Style(UILabelStyle.BodyLarge)),
-                                    Cell(0, 2, 1, 1, ChmodOctalText.Text("000").ReadOnly().Title("Octal")),
-                                    Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").ReadOnly().Title("Symbol"))
+                                    Cell(0, 1, 1, 1, Label().Text(ChmodCalculator.Permission).Style(UILabelStyle.BodyLarge)),
+                                    Cell(0, 2, 1, 1, ChmodOctalText.Text("000").ReadOnly().Title(ChmodCalculator.Octal)),
+                                    Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").ReadOnly().Title(ChmodCalculator.Symbol))
                                 ),
                             ChmodOctalCommandText
                                 .ReadOnly()
-                                .Title("Chmod Command (Octal)"),
+                                .Title(ChmodCalculator.ChmodCommandOctal),
                             ChmodSymbolCommandText
                                 .ReadOnly()
-                                .Title("Chmod Command (rwx)")
+                                .Title(ChmodCalculator.ChmodCommandSymbol)
                         )
                 )
             ));
@@ -155,24 +154,24 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                 Cell(
                     InputsGridRow.UsersName,
                     InputsGridColumn.Owner,
-                    Label().Style(UILabelStyle.BodyStrong).Text("Owner")
+                    Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Owner)
                     ),
                 Cell(
                     InputsGridRow.UsersName,
                     InputsGridColumn.Group,
-                    Label().Style(UILabelStyle.BodyStrong).Text("Group")
+                    Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Group)
                     ),
                 Cell(
                     InputsGridRow.UsersName,
                     InputsGridColumn.Other,
-                    Label().Style(UILabelStyle.BodyStrong).Text("Other")
+                    Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Other)
                     ),
 
                 // Read
                 Cell(
                     InputsGridRow.Read,
                     InputsGridColumn.Title,
-                    Label().Style(UILabelStyle.BodyStrong).Text("Read")
+                    Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Read)
                     ),
                 Cell(
                     InputsGridRow.Read,
@@ -194,7 +193,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                 Cell(
                     InputsGridRow.Write,
                     InputsGridColumn.Title,
-                    Label().Style(UILabelStyle.BodyStrong).Text("Write")
+                    Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Write)
                     ),
                 Cell(
                     InputsGridRow.Write,
@@ -216,7 +215,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                 Cell(
                     InputsGridRow.Execute,
                     InputsGridColumn.Title,
-                    Label().Style(UILabelStyle.BodyStrong).Text("Execute")
+                    Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Execute)
                     ),
                 Cell(
                     InputsGridRow.Execute,
