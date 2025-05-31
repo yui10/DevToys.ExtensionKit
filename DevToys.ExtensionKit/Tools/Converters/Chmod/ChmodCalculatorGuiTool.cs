@@ -1,6 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DevToys.ExtensionKit.Helpers.Converters;
+using DevToys.ExtensionKit.Models.Converters;
+using Microsoft.Extensions.Logging;
 
 namespace DevToys.ExtensionKit.Tools.Converters.Chmod;
+
+/// <summary>
+/// UNIX chmod (permission) calculator tool
+/// </summary>
 [Export(typeof(IGuiTool))]
 [Name("Chmod")]
 [ToolDisplayInformation(
@@ -46,6 +52,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
     private readonly ILogger _logger;
     private readonly ISettingsProvider _settingsProvider;
 
+    // Permission switches for each user type
     private readonly IUISwitch OwnerReadSwitch = Switch("owner-read");
     private readonly IUISwitch GroupReadSwitch = Switch("group-read");
     private readonly IUISwitch OtherReadSwitch = Switch("other-read");
@@ -58,26 +65,35 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
     private readonly IUISwitch GroupExecuteSwitch = Switch("group-execute");
     private readonly IUISwitch OtherExecuteSwitch = Switch("other-execute");
 
+    // 2D array of switches [permission type][user type]
     private readonly IUISwitch[][] PermissionSwitches;
 
+    // Input fields
     private readonly IUISingleLineTextInput FileNameText = SingleLineTextInput("file-name");
-
     private readonly IUISingleLineTextInput ChmodOctalText = SingleLineTextInput("chmod-octal");
     private readonly IUISingleLineTextInput ChmodSymbolText = SingleLineTextInput("chmod-symbol");
+
+    // Output fields (commands)
     private readonly IUISingleLineTextInput ChmodOctalCommandText = SingleLineTextInput("chmod-octal-command");
     private readonly IUISingleLineTextInput ChmodSymbolCommandText = SingleLineTextInput("chmod-symbol-command");
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
     [ImportingConstructor]
     public ChmodCalculatorGuiTool(ISettingsProvider settingsProvider)
     {
         _logger = this.Log();
         _settingsProvider = settingsProvider;
+
+        // Initialize the 2D array of switches
         PermissionSwitches =
         [
             [OwnerReadSwitch, GroupReadSwitch, OtherReadSwitch],
             [OwnerWriteSwitch, GroupWriteSwitch, OtherWriteSwitch],
             [OwnerExecuteSwitch, GroupExecuteSwitch, OtherExecuteSwitch]
         ];
+
         UpdateChmodResult();
     }
 
@@ -103,9 +119,18 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     Stack()
                         .Vertical()
                         .WithChildren(
-                            Card(InputsGrid()),                            FileNameText
+                            Card(InputsGrid()),
+                            FileNameText
                                 .Title(ChmodCalculator.FileName)
-                                .OnTextChanged(OnTextChanged)
+                                .OnTextChanged(OnTextChanged),
+                            Grid()
+                                .Rows(new UIGridLength(1, UIGridUnitType.Auto))
+                                .Columns(3)
+                                .Cells(
+                                    Cell(0, 1, 1, 1, Label().Text(ChmodCalculator.Permission).Style(UILabelStyle.BodyLarge)),
+                                    Cell(0, 2, 1, 1, ChmodOctalText.Text("000").Title(ChmodCalculator.Octal).OnTextChanged(OnOctalInputChanged)),
+                                    Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").Title(ChmodCalculator.Symbol).OnTextChanged(OnPermissionSymbolInputChanged))
+                                )
                         )
                 ),
                 Cell(
@@ -114,14 +139,14 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     Stack()
                         .Vertical()
                         .WithChildren(
-                            Grid()
-                                .Rows(new UIGridLength(1, UIGridUnitType.Auto))
-                                .Columns(3)
-                                .Cells(
-                                    Cell(0, 1, 1, 1, Label().Text(ChmodCalculator.Permission).Style(UILabelStyle.BodyLarge)),
-                                    Cell(0, 2, 1, 1, ChmodOctalText.Text("000").ReadOnly().Title(ChmodCalculator.Octal)),
-                                    Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").ReadOnly().Title(ChmodCalculator.Symbol))
-                                ),
+                            // Grid()
+                            //     .Rows(new UIGridLength(1, UIGridUnitType.Auto))
+                            //     .Columns(3)
+                            //     .Cells(
+                            //         Cell(0, 1, 1, 1, Label().Text(ChmodCalculator.Permission).Style(UILabelStyle.BodyLarge)),
+                            //         Cell(0, 2, 1, 1, ChmodOctalText.Text("000").ReadOnly().Title(ChmodCalculator.Octal)),
+                            //         Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").ReadOnly().Title(ChmodCalculator.Symbol))
+                            //     ),
                             ChmodOctalCommandText
                                 .ReadOnly()
                                 .Title(ChmodCalculator.ChmodCommandOctal),
@@ -132,9 +157,11 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                 )
             ));
 
+    /// <summary>
+    /// Create grid layout for permission settings UI
+    /// </summary>
     private IUIElement InputsGrid() =>
         Grid()
-
             .Rows(
                 (InputsGridRow.UsersName, new UIGridLength(1, UIGridUnitType.Fraction)),
                 (InputsGridRow.Read, new UIGridLength(1, UIGridUnitType.Fraction)),
@@ -150,13 +177,12 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
             .RowSmallSpacing()
             .ColumnSmallSpacing()
             .Cells(
-                // Users Name
+                // User type headers
                 Cell(
                     InputsGridRow.UsersName,
                     InputsGridColumn.Owner,
                     Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Owner)
-                    ),
-                Cell(
+                    ), Cell(
                     InputsGridRow.UsersName,
                     InputsGridColumn.Group,
                     Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Group)
@@ -167,7 +193,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     Label().Style(UILabelStyle.BodyStrong).Text(ChmodCalculator.Other)
                     ),
 
-                // Read
+                // Read permissions
                 Cell(
                     InputsGridRow.Read,
                     InputsGridColumn.Title,
@@ -189,7 +215,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     OtherReadSwitch.OnToggle(OnToggleChanged)
                     ),
 
-                // Write
+                // Write permissions
                 Cell(
                     InputsGridRow.Write,
                     InputsGridColumn.Title,
@@ -211,7 +237,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     OtherWriteSwitch.OnToggle(OnToggleChanged)
                     ),
 
-                // Execute
+                // Execute permissions
                 Cell(
                     InputsGridRow.Execute,
                     InputsGridColumn.Title,
@@ -234,42 +260,114 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
                     )
             );
 
+    /// <summary>
+    /// Handle data received from Smart Detection feature
+    /// </summary>
     public void OnDataReceived(string dataTypeName, object? parsedData)
     {
+        // In the future, this could handle permission strings received through Smart Detection
+        _logger.LogInformation("OnDataReceived called with dataTypeName: {DataTypeName}", dataTypeName);
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Handle file name text change
+    /// </summary>
     private void OnTextChanged(string text)
     {
         UpdateChmodResult();
     }
 
+    /// <summary>
+    /// Handle permission switch toggle
+    /// </summary>
     private void OnToggleChanged(bool isOn)
     {
         UpdateChmodResult();
     }
 
+    /// <summary>
+    /// Handle octal input changes
+    /// </summary>
+    private void OnOctalInputChanged(string text)
+    {
+        if (int.TryParse(text, out int octalValue) && octalValue >= 0 && octalValue <= 777)
+        {
+            var (owner, group, other) = ChmodHelper.ParseOctalToPermissions(octalValue);
+            SetSwitches(PermissionSwitches[0], owner);
+            SetSwitches(PermissionSwitches[1], group);
+            SetSwitches(PermissionSwitches[2], other);
+            UpdateChmodResult();
+        }
+    }
+
+    /// <summary>
+    /// Handle symbolic notation input changes
+    /// </summary>
+    private void OnPermissionSymbolInputChanged(string text)
+    {
+        if (ChmodHelper.IsValidPermissionSymbol(text))
+        {
+            var (owner, group, other) = ChmodHelper.ParseSymbolToPermissions(text);
+            SetSwitches(PermissionSwitches[0], owner);
+            SetSwitches(PermissionSwitches[1], group);
+            SetSwitches(PermissionSwitches[2], other);
+            UpdateChmodResult();
+        }
+    }
+
+
+    /// <summary>
+    /// Set permission switches based on permission value
+    /// </summary>
+    private static void SetSwitches(IUISwitch[] switches, Permission permission)
+    {
+        if (permission.HasFlag(Permission.Read))
+        {
+            switches[0].On();
+        }
+        else
+        {
+            switches[0].Off();
+        }
+
+        if (permission.HasFlag(Permission.Write))
+        {
+            switches[1].On();
+        }
+        else
+        {
+            switches[1].Off();
+        }
+
+        if (permission.HasFlag(Permission.Execute))
+        {
+            switches[2].On();
+        }
+        else
+        {
+            switches[2].Off();
+        }
+    }
+
+    /// <summary>
+    /// Update chmod results based on current UI state
+    /// </summary>
     private void UpdateChmodResult()
     {
         string file_name = FileNameText.Text;
         if (string.IsNullOrEmpty(file_name))
         {
-            file_name = "file_name";
+            file_name = ChmodCalculator.DefaultFileName;
         }
 
-        int ownerPermission = (OwnerReadSwitch.IsOn ? 4 : 0) | (OwnerWriteSwitch.IsOn ? 2 : 0) | (OwnerExecuteSwitch.IsOn ? 1 : 0);
-        int groupPermission = (GroupReadSwitch.IsOn ? 4 : 0) | (GroupWriteSwitch.IsOn ? 2 : 0) | (GroupExecuteSwitch.IsOn ? 1 : 0);
-        int otherPermission = (OtherReadSwitch.IsOn ? 4 : 0) | (OtherWriteSwitch.IsOn ? 2 : 0) | (OtherExecuteSwitch.IsOn ? 1 : 0);
+        // Build permissions from switch states
+        Permission owner = BuildPermission(PermissionSwitches[0]);
+        Permission group = BuildPermission(PermissionSwitches[1]);
+        Permission other = BuildPermission(PermissionSwitches[2]);
 
-        string chmodOctal = $"{Convert.ToString(ownerPermission, 8)}{Convert.ToString(groupPermission, 8)}{Convert.ToString(otherPermission, 8)}";
+        var (chmodOctal, chmodSymbol) = ChmodHelper.Calculate(owner, group, other);
         string chmodOctalCommand = $"chmod {chmodOctal} {file_name}";
-
-
-        string ownerPermissionSymbol = $"{(OwnerReadSwitch.IsOn ? "r" : "-")}{(OwnerWriteSwitch.IsOn ? "w" : "-")}{(OwnerExecuteSwitch.IsOn ? "x" : "-")}";
-        string groupPermissionSymbol = $"{(GroupReadSwitch.IsOn ? "r" : "-")}{(GroupWriteSwitch.IsOn ? "w" : "-")}{(GroupExecuteSwitch.IsOn ? "x" : "-")}";
-        string otherPermissionSymbol = $"{(OtherReadSwitch.IsOn ? "r" : "-")}{(OtherWriteSwitch.IsOn ? "w" : "-")}{(OtherExecuteSwitch.IsOn ? "x" : "-")}";
-
-        string chmodSymbol = $"{ownerPermissionSymbol}{groupPermissionSymbol}{otherPermissionSymbol}";
         string chmodSymbolCommand = $"chmod {chmodSymbol} {file_name}";
 
         ChmodOctalText.Text(chmodOctal);
@@ -277,7 +375,17 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
         ChmodOctalCommandText.Text(chmodOctalCommand);
         ChmodSymbolCommandText.Text(chmodSymbolCommand);
 
-        _logger.LogInformation("Chmod Result: {ChmodOctal}", chmodOctal);
+        _logger.LogInformation("Chmod Result: {ChmodOctal} {ChmodSymbol}", chmodOctal, chmodSymbol);
+    }
+
+    /// <summary>
+    /// Build permission from switch states
+    /// </summary>
+    private static Permission BuildPermission(IUISwitch[] switches)
+    {
+        return (switches[0].IsOn ? Permission.Read : Permission.None) |
+               (switches[1].IsOn ? Permission.Write : Permission.None) |
+               (switches[2].IsOn ? Permission.Execute : Permission.None);
     }
 }
 
