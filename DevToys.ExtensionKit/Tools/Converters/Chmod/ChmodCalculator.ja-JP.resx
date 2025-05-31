@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,52 +118,52 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessibleName" xml:space="preserve">
-    <value>Chmod Calculator</value>
+    <value>Chmod 計算機</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Chmod Calculator</value>
+    <value>Unix ファイルパーミッション（chmod）を計算します</value>
   </data>
   <data name="LongDisplayTitle" xml:space="preserve">
-    <value>Chmod Calculator</value>
+    <value>Chmod 計算機</value>
   </data>
   <data name="ShortDisplayTitle" xml:space="preserve">
     <value>Chmod</value>
   </data>
   <data name="FileName" xml:space="preserve">
-    <value>file name</value>
+    <value>ファイル名</value>
   </data>
   <data name="Permission" xml:space="preserve">
-    <value>Permission</value>
+    <value>パーミッション</value>
   </data>
   <data name="Octal" xml:space="preserve">
-    <value>Octal</value>
+    <value>8進数</value>
   </data>
   <data name="Symbol" xml:space="preserve">
-    <value>Symbol</value>
+    <value>シンボル</value>
   </data>
   <data name="ChmodCommandOctal" xml:space="preserve">
-    <value>Chmod Command (Octal)</value>
+    <value>Chmod コマンド（8進数）</value>
   </data>
   <data name="ChmodCommandSymbol" xml:space="preserve">
-    <value>Chmod Command (rwx)</value>
+    <value>Chmod コマンド（rwx）</value>
   </data>
   <data name="Owner" xml:space="preserve">
-    <value>Owner</value>
+    <value>所有者</value>
   </data>
   <data name="Group" xml:space="preserve">
-    <value>Group</value>
+    <value>グループ</value>
   </data>
   <data name="Other" xml:space="preserve">
-    <value>Other</value>
+    <value>その他</value>
   </data>
   <data name="Read" xml:space="preserve">
-    <value>Read</value>
+    <value>読み取り</value>
   </data>
   <data name="Write" xml:space="preserve">
-    <value>Write</value>
+    <value>書き込み</value>
   </data>
   <data name="Execute" xml:space="preserve">
-    <value>Execute</value>
+    <value>実行</value>
   </data>
   <data name="DefaultFileName" xml:space="preserve">
     <value>file_name</value>
