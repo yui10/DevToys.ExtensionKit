@@ -5,18 +5,42 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <SignAssembly>False</SignAssembly>
+    
+    <!-- NuGet package -->
+    <IsPackable>true</IsPackable>
+    <Version>1.0.0</Version>
     <Title>DevToys.ExtensionKit</Title>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Description>Add extended utilities such as Chmod, IPAddress, etc.</Description>
+    <PackageProjectUrl>https://github.com/yui10/DevToys.ExtensionKit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/yui10/DevToys.ExtensionKit</RepositoryUrl>
+    <Authors>yui10</Authors>
+    <PackageTags>devtoys-app</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevToys.Api" Version="2.0.8-preview" />
+    <None Include="..\LICENSE" Link="LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
+
+    <!-- This makes sure to include platform-specific binaries into the NuGet package, if any-->
+    <None Include="runtimes\**" Pack="true" PackagePath="\lib\net8.0\runtimes\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
+  <!-- This makes sure to include dependencies of the project into the NuGet package, if any -->
+  <Target Name="IncludeAllFilesInTargetDir" BeforeTargets="_GetPackageFiles">
+    <ItemGroup>
+      <None Include="$(OutputPath)\**">
+        <Pack>true</Pack>
+        <PackagePath>lib\net8.0</PackagePath>
+      </None>
+    </ItemGroup>
+  </Target>
+
   <ItemGroup>
-    <EmbeddedResource Update="Tools\Converters\Chmod\ChmodCalculator.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
+    <PackageReference Include="DevToys.Api" Version="2.0.8-preview" />
   </ItemGroup>
 
 </Project>
