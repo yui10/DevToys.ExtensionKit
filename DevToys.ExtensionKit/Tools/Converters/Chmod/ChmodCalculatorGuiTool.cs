@@ -89,9 +89,9 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
         // Initialize the 2D array of switches
         PermissionSwitches =
         [
-            [OwnerReadSwitch, GroupReadSwitch, OtherReadSwitch],
-            [OwnerWriteSwitch, GroupWriteSwitch, OtherWriteSwitch],
-            [OwnerExecuteSwitch, GroupExecuteSwitch, OtherExecuteSwitch]
+            [OwnerReadSwitch, OwnerWriteSwitch, OwnerExecuteSwitch],
+            [GroupReadSwitch, GroupWriteSwitch, GroupExecuteSwitch],
+            [OtherReadSwitch, OtherWriteSwitch, OtherExecuteSwitch]
         ];
 
         UpdateChmodResult();
