@@ -29,6 +29,9 @@ Issues and feedback are welcome in the [Issues section of the GitHub repository]
 Pull requests are also welcome.
 
 ## Release Notes
+[1.0.1]
+- Bug fixes
+- Updated documentation
 
 [1.0.0]
 - Initial release
