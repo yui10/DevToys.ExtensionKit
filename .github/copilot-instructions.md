@@ -1,3 +1,10 @@
+# 実装上の注意点
+
+GUIを作成する際は、DevToys APIを使用して開発を行います。
+実装する上で、DevToys API固有の書式があるため、他ツールでの実装を参考にしてから実装を行ってください。
+不明な点があれば、推測で実装せず、必ずDevToysのドキュメントを参照を行ってください。
+それでも不明な点があれば、ユーザーに質問を行い、実装を進めてください。
+
 # プロジェクト概要
 
 DevToys.ExtensionKit は、DevToys アプリケーションの拡張機能を提供するライブラリです。
@@ -23,23 +30,24 @@ DevToys.ExtensionKit は、DevToys アプリケーションの拡張機能を提
 ## ディレクトリ構成
 ```
 DevToys.ExtensionKit/
-├── Helpers/機能カテゴリ/       # 機能ロジック（命名: 機能名Helper）
-├── Models/機能カテゴリ/        # データ型・モデル
-├── Tools/機能カテゴリ/機能名/  # ツール実装
-│   ├── 機能名GuiTool.cs
-│   ├── 機能名CommandLineTool.cs
-│   ├── 機能名.resx             # リソースファイル
-│   └── 機能名.Designer.cs      # リソースDesignerファイル
-└── Properties/
-    ├── GlobalUsings.cs        # グローバルusing文
-    └── AssemblyInfo.cs
-
-DevToys.ExtensionKit.Tests/    # テストプロジェクト
-├── TestData/機能カテゴリ/      # テストデータ
-├── Helpers/機能カテゴリ/       # ヘルパーテスト
-├── Models/機能カテゴリ/        # モデルテスト
-├── Tools/機能カテゴリ/         # ツールテスト
-└── TestData/                  # 共通テストデータ
+├── DevToys.ExtensionKit/
+│   ├── Helpers/機能カテゴリ/       # 機能ロジック（命名: 機能名Helper）
+│   ├── Models/機能カテゴリ/        # データ型・モデル
+│   ├── Tools/機能カテゴリ/機能名/  # ツール実装
+│   │   ├── 機能名GuiTool.cs
+│   │   ├── 機能名CommandLineTool.cs
+│   │   ├── 機能名.resx             # リソースファイル
+│   │   └── 機能名.Designer.cs      # リソースDesignerファイル
+│   └── Properties/
+│       ├── GlobalUsings.cs        # グローバルusing文
+│       └── AssemblyInfo.cs
+│
+└── DevToys.ExtensionKit.Tests/    # テストプロジェクト
+    ├── TestData/機能カテゴリ/      # テストデータ
+    ├── Helpers/機能カテゴリ/       # ヘルパーテスト
+    ├── Models/機能カテゴリ/        # モデルテスト
+    ├── Tools/機能カテゴリ/         # ツールテスト
+    └── TestData/                  # 共通テストデータ
 ```
 
 ### ディレクトリ構成例
