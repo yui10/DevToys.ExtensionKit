@@ -50,11 +50,13 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     private readonly IUIInfoBar _errorInfoBar = InfoBar("error-infobar");
 
     // Input fields
+    // 入力フィールド
     private readonly IUISingleLineTextInput _ipAddressText = SingleLineTextInput("ip-address");
     private readonly IUINumberInput _subnetMaskNumber = NumberInput("subnet-mask");
     private readonly IUISelectDropDownList _subdivisionCountInput = SelectDropDownList("subdivision-count");
 
     // Output fields
+    // 出力フィールド
     private readonly IUISingleLineTextInput _networkAddressText = SingleLineTextInput("network-address");
     private readonly IUISingleLineTextInput _broadcastAddressText = SingleLineTextInput("broadcast-address");
     private readonly IUISingleLineTextInput _firstUsableHostText = SingleLineTextInput("first-host");
@@ -72,10 +74,12 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         _settingsProvider = settingsProvider;
 
         // Set default values
+        // 初期値を設定
         _ipAddressText.Text("192.168.1.1");
         _subnetMaskNumber.Value(24);
 
         // Initial display
+        // 初期表示
         if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? ipAddress))
         {
             StartIPAddressConvert(ipAddress);
@@ -271,9 +275,11 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
             int prefixLength = (int)_subnetMaskNumber.Value;
 
             // Create NetworkInfo object
+            // NetworkInfoオブジェクトを作成
             NetworkInfo networkInfo = new NetworkInfo(ipAddress, prefixLength);
 
             // Display calculation results in UI
+            // 計算結果をUIに表示
             _networkAddressText.Text(networkInfo.NetworkAddress.ToString());
             _broadcastAddressText.Text(networkInfo.BroadcastAddress.ToString());
             _firstUsableHostText.Text(networkInfo.FirstUsableHost.ToString());
@@ -282,10 +288,12 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
             _subnetMaskText.Text(networkInfo.SubnetMask.ToString());
 
             // Usable hosts
+            // 利用可能なホスト数
             long usableHosts = networkInfo.GetUsableHostsCount();
             _usableHostsCountText.Text(string.Format(IPAddressParser.HostsCountFormat, usableHosts));
 
             // Network subdivision information
+            // ネットワーク分割情報
             GenerateNetworkSubdivisionInfo(networkInfo);
 
             _logger.LogInformation("Completed processing for IP address {IPAddress} with prefix length {PrefixLength}",
@@ -304,9 +312,11 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         var subdivisionText = new System.Text.StringBuilder();
 
         // Current network and subnet mask
+        // 現在のネットワークとサブネットマスク
         subdivisionText.AppendLine(string.Format(IPAddressParser.CurrentNetworkFormat, networkInfo.ToCidrString()));
 
         // Add subnet information for further dividing this network
+        // このネットワークをさらに分割するためのサブネット情報を追加
         var selectedItem = _subdivisionCountInput.SelectedItem;
         if (selectedItem == null)
         {
