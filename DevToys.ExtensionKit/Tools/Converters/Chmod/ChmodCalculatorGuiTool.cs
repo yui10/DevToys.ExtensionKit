@@ -12,7 +12,7 @@ namespace DevToys.ExtensionKit.Tools.Converters.Chmod;
 [Name("Chmod")]
 [ToolDisplayInformation(
     IconFontName = "FluentSystemIcons",
-    IconGlyph = '\uF33A',
+    IconGlyph = '\uF5B4',
     GroupName = PredefinedCommonToolGroupNames.Converters,
     ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionKitResourceManagerAssemblyIdentifier),
     ResourceManagerBaseName = "DevToys.ExtensionKit.Tools.Converters.Chmod.ChmodCalculator",
