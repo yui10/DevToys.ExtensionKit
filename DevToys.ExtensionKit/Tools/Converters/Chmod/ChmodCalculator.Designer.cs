@@ -70,68 +70,6 @@ namespace DevToys.ExtensionKit.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chmod Calculator.
-        /// </summary>
-        internal static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chmod Calculator.
-        /// </summary>
-        internal static string LongDisplayTitle {
-            get {
-                return ResourceManager.GetString("LongDisplayTitle", resourceCulture);
-            }
-        }
-          /// <summary>
-        ///   Looks up a localized string similar to Chmod.
-        /// </summary>
-        internal static string ShortDisplayTitle {
-            get {
-                return ResourceManager.GetString("ShortDisplayTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to file name.
-        /// </summary>
-        internal static string FileName {
-            get {
-                return ResourceManager.GetString("FileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Permission.
-        /// </summary>
-        internal static string Permission {
-            get {
-                return ResourceManager.GetString("Permission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Octal.
-        /// </summary>
-        internal static string Octal {
-            get {
-                return ResourceManager.GetString("Octal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Symbol.
-        /// </summary>
-        internal static string Symbol {
-            get {
-                return ResourceManager.GetString("Symbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Chmod Command (Octal).
         /// </summary>
         internal static string ChmodCommandOctal {
@@ -150,47 +88,20 @@ namespace DevToys.ExtensionKit.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Owner.
+        ///   Looks up a localized string similar to file_name.
         /// </summary>
-        internal static string Owner {
+        internal static string DefaultFileName {
             get {
-                return ResourceManager.GetString("Owner", resourceCulture);
+                return ResourceManager.GetString("DefaultFileName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group.
+        ///   Looks up a localized string similar to Chmod Calculator.
         /// </summary>
-        internal static string Group {
+        internal static string Description {
             get {
-                return ResourceManager.GetString("Group", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other.
-        /// </summary>
-        internal static string Other {
-            get {
-                return ResourceManager.GetString("Other", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Read.
-        /// </summary>
-        internal static string Read {
-            get {
-                return ResourceManager.GetString("Read", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Write.
-        /// </summary>
-        internal static string Write {
-            get {
-                return ResourceManager.GetString("Write", resourceCulture);
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -204,11 +115,110 @@ namespace DevToys.ExtensionKit.Tools.Converters.Chmod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to file_name.
+        ///   Looks up a localized string similar to file name.
         /// </summary>
-        internal static string DefaultFileName {
+        internal static string FileName {
             get {
-                return ResourceManager.GetString("DefaultFileName", resourceCulture);
+                return ResourceManager.GetString("FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        internal static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string Input {
+            get {
+                return ResourceManager.GetString("Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chmod Calculator.
+        /// </summary>
+        internal static string LongDisplayTitle {
+            get {
+                return ResourceManager.GetString("LongDisplayTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Octal.
+        /// </summary>
+        internal static string Octal {
+            get {
+                return ResourceManager.GetString("Octal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        internal static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        internal static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read.
+        /// </summary>
+        internal static string Read {
+            get {
+                return ResourceManager.GetString("Read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chmod.
+        /// </summary>
+        internal static string ShortDisplayTitle {
+            get {
+                return ResourceManager.GetString("ShortDisplayTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol.
+        /// </summary>
+        internal static string Symbol {
+            get {
+                return ResourceManager.GetString("Symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write.
+        /// </summary>
+        internal static string Write {
+            get {
+                return ResourceManager.GetString("Write", resourceCulture);
             }
         }
     }

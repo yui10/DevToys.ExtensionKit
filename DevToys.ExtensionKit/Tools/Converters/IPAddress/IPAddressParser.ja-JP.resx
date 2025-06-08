@@ -162,9 +162,6 @@
   <data name="IfFurtherSubdividedText" xml:space="preserve">
     <value>さらに分割した場合:</value>
   </data>
-  <data name="SubnetInfoFormat" xml:space="preserve">
-    <value> /{0}: {1}サブネット (各{2:#,##0}ホスト)</value>
-  </data>
   <data name="IPAddressTitle" xml:space="preserve">
     <value>IPアドレス</value>
   </data>
@@ -194,5 +191,20 @@
   </data>
   <data name="SubdivisionCountTitle" xml:space="preserve">
     <value>分割数</value>
+  </data>
+  <data name="SubnetCSVFormatTitle" xml:space="preserve">
+    <value>サブネット (CSV形式)</value>
+  </data>
+  <data name="TableDisplayTitle" xml:space="preserve">
+    <value>テーブル表示</value>
+  </data>
+  <data name="TableDisplayDescription" xml:space="preserve">
+    <value>テーブルモードとテキストモードを切り替える</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SubdivisionCountDescription" xml:space="preserve">
+    <value>ネットワークの分割数</value>
   </data>
 </root>

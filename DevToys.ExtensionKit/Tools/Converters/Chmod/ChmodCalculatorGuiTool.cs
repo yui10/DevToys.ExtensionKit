@@ -6,12 +6,13 @@ namespace DevToys.ExtensionKit.Tools.Converters.Chmod;
 
 /// <summary>
 /// UNIX chmod (permission) calculator tool
+/// UNIX chmod（パーミッション）計算ツール
 /// </summary>
 [Export(typeof(IGuiTool))]
 [Name("Chmod")]
 [ToolDisplayInformation(
     IconFontName = "FluentSystemIcons",
-    IconGlyph = '\uF33A',
+    IconGlyph = '\uF5B4',
     GroupName = PredefinedCommonToolGroupNames.Converters,
     ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionKitResourceManagerAssemblyIdentifier),
     ResourceManagerBaseName = "DevToys.ExtensionKit.Tools.Converters.Chmod.ChmodCalculator",
@@ -23,14 +24,13 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 {
     private enum GridColumn
     {
-        Stretch
+        Left,
+        Right
     }
 
     private enum GridRow
     {
-        Settings,
-        Inputs,
-        Outputs
+        Stretch
     }
 
     private enum InputsGridColumn
@@ -53,6 +53,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
     private readonly ISettingsProvider _settingsProvider;
 
     // Permission switches for each user type
+    // 各ユーザータイプのパーミッションスイッチ
     private readonly IUISwitch OwnerReadSwitch = Switch("owner-read");
     private readonly IUISwitch GroupReadSwitch = Switch("group-read");
     private readonly IUISwitch OtherReadSwitch = Switch("other-read");
@@ -66,19 +67,23 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
     private readonly IUISwitch OtherExecuteSwitch = Switch("other-execute");
 
     // 2D array of switches [permission type][user type]
+    // スイッチの2次元配列 [パーミッションタイプ][ユーザータイプ]
     private readonly IUISwitch[][] PermissionSwitches;
 
     // Input fields
+    // 入力フィールド
     private readonly IUISingleLineTextInput FileNameText = SingleLineTextInput("file-name");
     private readonly IUISingleLineTextInput ChmodOctalText = SingleLineTextInput("chmod-octal");
     private readonly IUISingleLineTextInput ChmodSymbolText = SingleLineTextInput("chmod-symbol");
 
     // Output fields (commands)
+    // 出力フィールド（コマンド）
     private readonly IUISingleLineTextInput ChmodOctalCommandText = SingleLineTextInput("chmod-octal-command");
     private readonly IUISingleLineTextInput ChmodSymbolCommandText = SingleLineTextInput("chmod-symbol-command");
 
     /// <summary>
     /// Constructor
+    /// コンストラクター
     /// </summary>
     [ImportingConstructor]
     public ChmodCalculatorGuiTool(ISettingsProvider settingsProvider)
@@ -87,6 +92,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
         _settingsProvider = settingsProvider;
 
         // Initialize the 2D array of switches
+        // スイッチの2次元配列を初期化
         PermissionSwitches =
         [
             [OwnerReadSwitch, OwnerWriteSwitch, OwnerExecuteSwitch],
@@ -94,68 +100,61 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
             [OtherReadSwitch, OtherWriteSwitch, OtherExecuteSwitch]
         ];
 
+        FileNameText.Text(ChmodCalculator.DefaultFileName);
+        ChmodOctalText.Text("000");
+        ChmodSymbolText.Text("---------");
+
         UpdateChmodResult();
     }
 
     public UIToolView View => new(
         isScrollable: true,
-        Grid()
-            .ColumnLargeSpacing()
-            .RowLargeSpacing()
-            .Columns((GridColumn.Stretch, new UIGridLength(1, UIGridUnitType.Fraction)))
-            .Rows(
-                (GridRow.Settings, new UIGridLength(1, UIGridUnitType.Auto)),
-                (GridRow.Inputs, new UIGridLength(1, UIGridUnitType.Fraction)),
-                (GridRow.Outputs, new UIGridLength(1, UIGridUnitType.Fraction)))
-            .Cells(
-                Cell(
-                    GridRow.Settings,
-                    GridColumn.Stretch,
-                    Stack()
-                ),
-                Cell(
-                    GridRow.Inputs,
-                    GridColumn.Stretch,
-                    Stack()
-                        .Vertical()
-                        .WithChildren(
-                            Card(InputsGrid()),
-                            FileNameText
-                                .Title(ChmodCalculator.FileName)
-                                .OnTextChanged(OnTextChanged),
-                            Grid()
-                                .Rows(new UIGridLength(1, UIGridUnitType.Auto))
-                                .Columns(3)
-                                .Cells(
-                                    Cell(0, 1, 1, 1, Label().Text(ChmodCalculator.Permission).Style(UILabelStyle.BodyLarge)),
-                                    Cell(0, 2, 1, 1, ChmodOctalText.Text("000").Title(ChmodCalculator.Octal).OnTextChanged(OnOctalInputChanged)),
-                                    Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").Title(ChmodCalculator.Symbol).OnTextChanged(OnPermissionSymbolInputChanged))
-                                )
+        Stack()
+            .Vertical()
+            .LargeSpacing()
+            .WithChildren(
+                Label()
+                    .Style(UILabelStyle.Subtitle)
+                    .Text(ChmodCalculator.Input),
+                Card(InputsGrid()),
+                Grid()
+                    .Rows(
+                        (GridRow.Stretch, new UIGridLength(1, UIGridUnitType.Auto))
+                    )
+                    .Columns(
+                        (GridColumn.Left, new UIGridLength(1, UIGridUnitType.Auto)),
+                        (GridColumn.Right, new UIGridLength(1, UIGridUnitType.Auto))
+                    )
+                    .Cells(
+                        Cell(
+                            GridRow.Stretch,
+                            GridColumn.Left,
+                            ChmodOctalText
+                                .Title(ChmodCalculator.Octal)
+                                .OnTextChanged(OnOctalInputChanged)
+                        ),
+                        Cell(
+                            GridRow.Stretch,
+                            GridColumn.Right,
+                            ChmodSymbolText
+                                .Title(ChmodCalculator.Symbol)
+                                .OnTextChanged(OnPermissionSymbolInputChanged)
                         )
-                ),
-                Cell(
-                    GridRow.Outputs,
-                    GridColumn.Stretch,
-                    Stack()
-                        .Vertical()
-                        .WithChildren(
-                            // Grid()
-                            //     .Rows(new UIGridLength(1, UIGridUnitType.Auto))
-                            //     .Columns(3)
-                            //     .Cells(
-                            //         Cell(0, 1, 1, 1, Label().Text(ChmodCalculator.Permission).Style(UILabelStyle.BodyLarge)),
-                            //         Cell(0, 2, 1, 1, ChmodOctalText.Text("000").ReadOnly().Title(ChmodCalculator.Octal)),
-                            //         Cell(0, 3, 1, 1, ChmodSymbolText.Text("---------").ReadOnly().Title(ChmodCalculator.Symbol))
-                            //     ),
-                            ChmodOctalCommandText
-                                .ReadOnly()
-                                .Title(ChmodCalculator.ChmodCommandOctal),
-                            ChmodSymbolCommandText
-                                .ReadOnly()
-                                .Title(ChmodCalculator.ChmodCommandSymbol)
-                        )
-                )
-            ));
+                    ),
+                FileNameText
+                    .Title(ChmodCalculator.FileName)
+                    .OnTextChanged(OnTextChanged),
+                Label()
+                    .Style(UILabelStyle.Subtitle)
+                    .Text(ChmodCalculator.Output),
+                ChmodOctalCommandText
+                    .ReadOnly()
+                    .Title(ChmodCalculator.ChmodCommandOctal),
+                ChmodSymbolCommandText
+                    .ReadOnly()
+                    .Title(ChmodCalculator.ChmodCommandSymbol)
+            )         
+        );
 
     /// <summary>
     /// Create grid layout for permission settings UI
@@ -262,16 +261,19 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Handle data received from Smart Detection feature
+    /// Smart Detection 機能から受信したデータを処理
     /// </summary>
     public void OnDataReceived(string dataTypeName, object? parsedData)
     {
         // In the future, this could handle permission strings received through Smart Detection
+        // 将来的には、Smart Detection を通じて受信したパーミッション文字列を処理できるようにする
         _logger.LogInformation("OnDataReceived called with dataTypeName: {DataTypeName}", dataTypeName);
         throw new NotImplementedException();
     }
 
     /// <summary>
     /// Handle file name text change
+    /// ファイル名テキストの変更を処理
     /// </summary>
     private void OnTextChanged(string text)
     {
@@ -280,6 +282,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Handle permission switch toggle
+    /// パーミッションスイッチのトグル操作を処理
     /// </summary>
     private void OnToggleChanged(bool isOn)
     {
@@ -288,6 +291,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Handle octal input changes
+    /// 8進数入力の変更を処理
     /// </summary>
     private void OnOctalInputChanged(string text)
     {
@@ -303,6 +307,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Handle symbolic notation input changes
+    /// シンボリック表記入力の変更を処理
     /// </summary>
     private void OnPermissionSymbolInputChanged(string text)
     {
@@ -319,6 +324,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Set permission switches based on permission value
+    /// パーミッション値に基づいてスイッチを設定
     /// </summary>
     private static void SetSwitches(IUISwitch[] switches, Permission permission)
     {
@@ -352,6 +358,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Update chmod results based on current UI state
+    /// 現在のUI状態に基づいてchmod結果を更新
     /// </summary>
     private void UpdateChmodResult()
     {
@@ -362,6 +369,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
         }
 
         // Build permissions from switch states
+        // スイッチの状態からパーミッションを構築
         Permission owner = BuildPermission(PermissionSwitches[0]);
         Permission group = BuildPermission(PermissionSwitches[1]);
         Permission other = BuildPermission(PermissionSwitches[2]);
@@ -380,6 +388,7 @@ internal sealed partial class ChmodCalculatorGuiTool : IGuiTool
 
     /// <summary>
     /// Build permission from switch states
+    /// スイッチの状態からパーミッションを構築
     /// </summary>
     private static Permission BuildPermission(IUISwitch[] switches)
     {

@@ -132,9 +132,6 @@
   <data name="FileName" xml:space="preserve">
     <value>ファイル名</value>
   </data>
-  <data name="Permission" xml:space="preserve">
-    <value>パーミッション</value>
-  </data>
   <data name="Octal" xml:space="preserve">
     <value>8進数</value>
   </data>
@@ -167,5 +164,11 @@
   </data>
   <data name="DefaultFileName" xml:space="preserve">
     <value>file_name</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>出力</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>入力</value>
   </data>
 </root>
