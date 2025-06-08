@@ -205,15 +205,6 @@ namespace DevToys.ExtensionKit.Tools.Converters.IPAddress {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /{0}: {1} subnets ({2:#,##0} hosts each).
-        /// </summary>
-        internal static string SubnetInfoFormat {
-            get {
-                return ResourceManager.GetString("SubnetInfoFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to IP Address.
         /// </summary>
         internal static string IPAddressTitle {
@@ -291,6 +282,61 @@ namespace DevToys.ExtensionKit.Tools.Converters.IPAddress {
         internal static string UsableHostsTitle {
             get {
                 return ResourceManager.GetString("UsableHostsTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Subnets (CSV Format).
+        /// </summary>
+        internal static string SubnetCSVFormatTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("SubnetCSVFormatTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Table Display.
+        /// </summary>
+        internal static string TableDisplayTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("TableDisplayTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table Display Description.
+        /// </summary>
+        internal static string TableDisplayDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("TableDisplayDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        internal static string Configuration
+        {
+            get
+            {
+                return ResourceManager.GetString("Configuration", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Subdivision Count Description.
+        /// </summary>
+        internal static string SubdivisionCountDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("SubdivisionCountDescription", resourceCulture);
             }
         }
     }

@@ -162,9 +162,6 @@
   <data name="IfFurtherSubdividedText" xml:space="preserve">
     <value>If further subdivided:</value>
   </data>
-  <data name="SubnetInfoFormat" xml:space="preserve">
-    <value> /{0}: {1} subnets ({2:#,##0} hosts each)</value>
-  </data>
   <data name="IPAddressTitle" xml:space="preserve">
     <value>IP Address</value>
   </data>
@@ -194,5 +191,20 @@
   </data>
   <data name="SubdivisionCountTitle" xml:space="preserve">
     <value>Subdivision Count</value>
+  </data>
+  <data name="SubnetCSVFormatTitle" xml:space="preserve">
+    <value>Subnets (CSV Format)</value>
+  </data>
+  <data name="TableDisplayTitle" xml:space="preserve">
+    <value>Table Display</value>
+  </data>
+  <data name="TableDisplayDescription" xml:space="preserve">
+    <value>Switch between Table mode and Text mode</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="SubdivisionCountDescription" xml:space="preserve">
+    <value>Number of network partitions</value>
   </data>
 </root>

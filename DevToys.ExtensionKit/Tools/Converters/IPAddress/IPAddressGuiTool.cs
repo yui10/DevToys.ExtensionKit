@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using netIPAddress = System.Net.IPAddress;
 using DevToys.ExtensionKit.Models;
+using System.Text;
 
 namespace DevToys.ExtensionKit.Tools.Converters.IPAddress;
 
@@ -18,6 +19,20 @@ namespace DevToys.ExtensionKit.Tools.Converters.IPAddress;
     AccessibleNameResourceName = nameof(IPAddressParser.AccessibleName))]
 internal sealed partial class IPAddressGuiTool : IGuiTool
 {
+    /// <summary>
+    /// Settings for whether to enable the table display mode.
+    /// テーブル表示モードを有効にするかどうかの設定。
+    /// </summary>
+    private static readonly SettingDefinition<bool> IsTableDisplay =
+        new(name: $"{nameof(IPAddressGuiTool)}.{nameof(IsTableDisplay)}", defaultValue: true);
+
+    /// <summary>
+    /// Number of subdivisions for the network.
+    /// ネットワークの分割数。
+    /// </summary>
+    private static readonly SettingDefinition<int> SubdivisionCount =
+        new(name: $"{nameof(IPAddressGuiTool)}.{nameof(SubdivisionCount)}", defaultValue: 1);
+
     private enum GridColumn
     {
         Stretch
@@ -53,7 +68,6 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     // 入力フィールド
     private readonly IUISingleLineTextInput _ipAddressText = SingleLineTextInput("ip-address");
     private readonly IUINumberInput _subnetMaskNumber = NumberInput("subnet-mask");
-    private readonly IUISelectDropDownList _subdivisionCountInput = SelectDropDownList("subdivision-count");
 
     // Output fields
     // 出力フィールド
@@ -64,8 +78,10 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
     private readonly IUISingleLineTextInput _wildcardMaskText = SingleLineTextInput("wildcard-mask");
     private readonly IUISingleLineTextInput _subnetMaskText = SingleLineTextInput("subnet-mask-text");
     private readonly IUISingleLineTextInput _usableHostsCountText = SingleLineTextInput("usable-hosts-count");
-    private readonly IUILabel _networkSubdivisionLabel = Label("network-subdivision");
-    private readonly IUILabel _subnetResultsLabel = Label("subnet-results");
+    // Network subdivision results
+    // ネットワーク分割結果
+    private readonly IUIMultiLineTextInput _subnetCSVText = MultiLineTextInput("subnet-csv-text");
+    private readonly IUIDataGrid _subnetDataGrid = DataGrid("subnet-data-grid");
 
     [ImportingConstructor]
     public IPAddressGuiTool(ISettingsProvider settingsProvider)
@@ -84,6 +100,10 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         {
             StartIPAddressConvert(ipAddress);
         }
+
+        // 初期表示モードを設定
+        bool isTableEnabled = _settingsProvider.GetSetting(IsTableDisplay);
+        OnSettingChanged(isTableEnabled);
     }
 
     public UIToolView View => new(
@@ -101,7 +121,36 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                 Cell(
                     GridRow.Settings,
                     GridColumn.Stretch,
-                    _errorInfoBar.Title(IPAddressParser.ErrorTitle).Error()
+                    Stack()
+                        .Vertical()
+                        .WithChildren(
+                            _errorInfoBar.Title(IPAddressParser.ErrorTitle).Error().Close(),
+                            Label().Text(IPAddressParser.Configuration),
+                            Setting("subdivision-count")
+                                .Icon("FluentSystemIcons", '\uF7A0')
+                                .Title(IPAddressParser.SubdivisionCountTitle)
+                                .Description(IPAddressParser.SubdivisionCountDescription)
+                                .Handle(
+                                    _settingsProvider,
+                                    SubdivisionCount,
+                                    OnSubnetDivisionChanged,
+                                    Item(text: "1", value: 1),
+                                    Item(text: "2", value: 2),
+                                    Item(text: "4", value: 4),
+                                    Item(text: "8", value: 8),
+                                    Item(text: "16", value: 16),
+                                    Item(text: "32", value: 32)
+                                ),
+                            Setting("is-table-enabled")
+                                .Icon("FluentSystemIcons", '\uF75E')
+                                .Title(IPAddressParser.TableDisplayTitle)
+                                .Description(IPAddressParser.TableDisplayDescription)
+                                .Handle(
+                                    _settingsProvider,
+                                    IsTableDisplay,
+                                    OnSettingChanged
+                                )
+                        )
                 ),
                 Cell(
                     GridRow.Inputs,
@@ -123,19 +172,7 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                                             .Minimum(1)
                                             .Maximum(32)
                                             .Step(1)
-                                            .OnValueChanged(OnSubnetMaskNumberChanged),
-                                        _subdivisionCountInput
-                                            .Title(IPAddressParser.SubdivisionCountTitle)
-                                            .WithItems(
-                                                Item(text: "1", value: 1),
-                                                Item(text: "2", value: 2),
-                                                Item(text: "4", value: 4),
-                                                Item(text: "8", value: 8),
-                                                Item(text: "16", value: 16),
-                                                Item(text: "32", value: 32)
-                                            )
-                                            .OnItemSelected(OnItemSelected)
-                                            .Select(0)
+                                            .OnValueChanged(OnSubnetMaskNumberChanged)
                                     )
                             )
                     )
@@ -160,7 +197,11 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
                             .Vertical()
                             .WithChildren(
                                 Label().Text(IPAddressParser.SubdivisionTitle).Style(UILabelStyle.Subtitle),
-                                _subnetResultsLabel.Style(UILabelStyle.Body)
+                                Label().Text(IPAddressParser.IfFurtherSubdividedText),
+                                _subnetDataGrid,
+                                _subnetCSVText
+                                    .Title(IPAddressParser.SubnetCSVFormatTitle)
+                                    .ReadOnly()
                             )
                     )
                 )
@@ -226,6 +267,38 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
         // External data reception not implemented
     }
 
+    /// <summary>
+    /// Handles changes to the subnet division setting.
+    /// サブネット分割設定変更時の処理
+    /// </summary>
+    private void OnSubnetDivisionChanged(int division)
+    {
+        if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? _ipAddress))
+        {
+            StartIPAddressConvert(_ipAddress);
+        }
+    }
+
+    /// <summary>
+    /// Handles changes to the table display mode setting.
+    /// テーブル表示モードの設定変更時の処理
+    /// </summary>
+    private void OnSettingChanged(bool isEnabled)
+    {
+        _logger.LogInformation("Table display mode changed: {IsEnabled}", isEnabled);
+
+        if (isEnabled)
+        {
+            _subnetDataGrid.Show();
+            _subnetCSVText.Hide();
+        }
+        else
+        {
+            _subnetDataGrid.Hide();
+            _subnetCSVText.Show();
+        }
+    }
+
     private void OnIPAddressChanged(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -248,19 +321,6 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
 
     private void OnSubnetMaskNumberChanged(double value)
     {
-        if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? _ipAddress))
-        {
-            StartIPAddressConvert(_ipAddress);
-        }
-    }
-
-    private void OnItemSelected(IUIDropDownListItem? selectedItem)
-    {
-        if (selectedItem == null)
-        {
-            return;
-        }
-
         if (netIPAddress.TryParse(_ipAddressText.Text, out netIPAddress? _ipAddress))
         {
             StartIPAddressConvert(_ipAddress);
@@ -309,35 +369,63 @@ internal sealed partial class IPAddressGuiTool : IGuiTool
 
     private void GenerateNetworkSubdivisionInfo(NetworkInfo networkInfo)
     {
-        var subdivisionText = new System.Text.StringBuilder();
+        var csvText = new StringBuilder();
 
-        // Current network and subnet mask
-        // 現在のネットワークとサブネットマスク
-        subdivisionText.AppendLine(string.Format(IPAddressParser.CurrentNetworkFormat, networkInfo.ToCidrString()));
+        // CSV header
+        // CSVヘッダー
+        csvText.AppendLine("Network Address,Prefix Length,Subnet Mask,Broadcast Address,First Host,Last Host,Usable Hosts");
 
         // Add subnet information for further dividing this network
         // このネットワークをさらに分割するためのサブネット情報を追加
-        var selectedItem = _subdivisionCountInput.SelectedItem;
-        if (selectedItem == null)
+        int subdivisionCount = _settingsProvider.GetSetting(SubdivisionCount);
+
+        // DataGridのデータを作成
+        // Create a new DataGrid with all data
+        var dataGridColumns = new string[]
         {
-            return;
-        }
-        if (!int.TryParse(selectedItem.Value?.ToString(), out int subdivisionCount))
-        {
-            return;
-        }
+            IPAddressParser.NetworkAddressTitle,
+            IPAddressParser.PrefixLengthTitle,
+            IPAddressParser.SubnetMaskTitle,
+            IPAddressParser.BroadcastAddressTitle,
+            IPAddressParser.FirstHostTitle,
+            IPAddressParser.LastHostTitle,
+            IPAddressParser.UsableHostsTitle
+        };
+
+        // DataGridの行データを作成
+        var rows = new List<IUIDataGridRow>();
+
+        // テーブルの作成と表示
+        _subnetDataGrid.WithColumns(dataGridColumns);
+
         if (networkInfo.PrefixLength + Math.Log2(subdivisionCount) <= 32)
         {
-            subdivisionText.AppendLine("\n" + IPAddressParser.IfFurtherSubdividedText);
-
             var subnets = networkInfo.GetSubnet(subdivisionCount);
+
             foreach (var subnet in subnets)
             {
-                subdivisionText.AppendLine(string.Format("{0}/{1} ({2})", subnet.NetworkAddress, subnet.PrefixLength, subnet.SubnetMask));
+                string[] rowData =
+                [
+                    subnet.NetworkAddress.ToString(),
+                    subnet.PrefixLength.ToString(),
+                    subnet.SubnetMask.ToString(),
+                    subnet.BroadcastAddress.ToString(),
+                    subnet.FirstUsableHost.ToString(),
+                    subnet.LastUsableHost.ToString(),
+                    subnet.GetUsableHostsCount().ToString()
+                ];
+                // Add to CSV (for non-table mode)
+                csvText.AppendLine(string.Format("{0},{1},{2},{3},{4},{5},{6}", rowData));
+
+                // Add to DataGrid (for table mode)
+                rows.Add(Row(value: subnet, rowData));
             }
         }
 
-        _subnetResultsLabel.Text(subdivisionText.ToString());
+        // テキスト表示を更新 (テーブル表示モードでない場合に使用)
+        _subnetCSVText.Text(csvText.ToString());
+
+        // 行データを設定(テーブル表示モードで使用)
+        _subnetDataGrid.WithRows(rows.ToArray());
     }
 }
-
