@@ -521,7 +521,7 @@ string? text = Input.AsT1OrDefault(); // string型として取得（失敗時は
 ## 基本方針
 - **コメント**: 必要に応じて記述
 - **命名規則**: [Microsoft の命名規則](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/coding-style/coding-conventions)に従う
-- **国際化対応**: UIに表示される文字列は、リソースファイルに定義し、英語と日本語の両方を用意
+- **国際化対応**: UIに表示される文字列は、リソースファイルに定義し、デフォルト言語の英語(en-US)と日本語(ja-JP)の両方を用意
 
 ## 機能追加の手順
 
