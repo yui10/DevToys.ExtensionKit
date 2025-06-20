@@ -1,0 +1,129 @@
+name: Bug Report
+description: Report an issue with DevToys.ExtensionKit tools or functionality
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue with DevToys.ExtensionKit! 
+
+        If you've found an existing issue that matches your problem, please add a 👍 reaction instead of creating a duplicate.
+
+        The more detailed information you provide, the faster we can identify and fix the issue.
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: What's the issue?
+      description: Please outline the bug that occurred. What went wrong?
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Provide a reliable sequence of steps that consistently causes this issue to occur.
+      placeholder: |
+        For example:
+        1. Open DevToys
+        2. Go to [specific extension tool] in the sidebar
+        3. Input [specific test data]
+        4. Click on [specific button or control]
+        5. Observe [error/unexpected behavior]
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: Provide a clear and concise explanation of what you expected to happen as the correct behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Screen Recording
+      description: Visual evidence helps us understand the issue quickly. Attach screenshots, GIFs, or videos if possible.
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Current Workaround
+      description: If possible, what steps can be taken to work around this problem?
+
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Operating System
+      multiple: true
+      description: On which operating systems did you experience this issue?
+      options:
+        - Windows
+        - macOS
+        - Linux
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS Version Details
+      description: Specific version information helps identify platform-specific issues.
+      placeholder: "Windows 11 22H2 (Build 22621.3155), macOS 14.5, Ubuntu 24.04 LTS"
+
+  - type: dropdown
+    id: app-kind
+    attributes:
+      label: DevToys Application
+      multiple: true
+      description: Which DevToys application shows this issue?
+      options:
+        - DevToys (GUI application)
+        - DevToys CLI (Command Line)
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: DevToys Version
+      description: Find this in DevToys under Settings > About
+      placeholder: "Version: 2.0.0.0 | X64; OS Version: 10.0.22000.282"
+    validations:
+      required: true
+
+  - type: input
+    id: extension-version
+    attributes:
+      label: DevToys.ExtensionKit Version
+      description: Which version of the extension package are you using?
+      placeholder: "1.0.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs and Assets
+      description: |
+        Please provide any logs, screenshots, or other assets relevant to this bug.
+
+        Tip: You can attach files by clicking this area and dragging files in.
+      placeholder: |
+        To upload DevToys logs, access them from Settings > About > Open log location.
+        If the app doesn't start, you can find logs on your hard drive. See https://devtoys.app/doc/articles/sysadmin/logs.html
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification Checklist
+      description: Please verify you've completed the following steps before submitting
+      options:
+        - label: I have searched for similar issues before creating this one
+          required: true
+        - label: I have tested with the latest version of DevToys.ExtensionKit
+          required: true
+        - label: I have included all information needed to reproduce this bug
+          required: true
