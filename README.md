@@ -5,7 +5,7 @@ This package is an extension for [DevToys 2.0](https://devtoys.app/).
 
 DevToys.ExtensionKit provides additional developer tools for the DevToys application.
 
-![preview](./assets/preview.png)
+![preview](https://raw.githubusercontent.com/yui10/DevToys.ExtensionKit/main/assets/preview.png?raw=true)
 
 ## Features
 
@@ -29,6 +29,9 @@ Issues and feedback are welcome in the [Issues section of the GitHub repository]
 Pull requests are also welcome.
 
 ## Release Notes
+[1.1.0]
+- Improved the output of the network partitioning function in the IP Address Parser Tool.
+- Fixed ChmodCalculator UI to be easier to read.
 [1.0.1]
 - Bug fixes
 - Updated documentation
