@@ -41,6 +41,8 @@
 
   <ItemGroup>
     <PackageReference Include="DevToys.Api" Version="2.0.8-preview" />
+    <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <PackageReference Include="ZXing.Net.Bindings.ImageSharp" Version="0.16.12" />
   </ItemGroup>
 
 </Project>
