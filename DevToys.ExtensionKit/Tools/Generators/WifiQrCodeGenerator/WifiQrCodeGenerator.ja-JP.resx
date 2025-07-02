@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Generate QR codes for WiFi network sharing</value>
+    <value>WiFiネットワーク共有用のQRコードを生成します</value>
   </data>
   <data name="LongDisplayTitle" xml:space="preserve">
-    <value>WiFi QR Code Generator</value>
+    <value>WiFi QRコード ジェネレーター</value>
   </data>
   <data name="ShortDisplayTitle" xml:space="preserve">
-    <value>WiFi QR Code</value>
+    <value>WiFi QRコード</value>
   </data>
   <data name="AccessibleName" xml:space="preserve">
-    <value>WiFi QR Code Generator Tool</value>
+    <value>WiFi QRコード ジェネレーター ツール</value>
   </data>
   <data name="InputTitle" xml:space="preserve">
-    <value>Input</value>
+    <value>入力</value>
   </data>
   <data name="NetworkNameTitle" xml:space="preserve">
-    <value>Network Name (SSID)</value>
+    <value>ネットワーク名 (SSID)</value>
   </data>
   <data name="PasswordTitle" xml:space="preserve">
-    <value>Password</value>
+    <value>パスワード</value>
   </data>
   <data name="QrCodePreviewTitle" xml:space="preserve">
-    <value>QR Code Preview</value>
+    <value>QRコードプレビュー</value>
   </data>
   <data name="GenerationFailedError" xml:space="preserve">
-    <value>Failed to generate QR code. Please check your input.</value>
+    <value>QRコードの生成に失敗しました。入力内容を確認してください。</value>
   </data>
   <data name="SecurityTypeSettingTitle" xml:space="preserve">
-    <value>Wifi Security</value>
+    <value>WiFiセキュリティ</value>
   </data>
   <data name="SecurityTypeSettingDescription" xml:space="preserve">
-    <value>Select the security type for your WiFi network</value>
+    <value>WiFiネットワークのセキュリティタイプを選択してください</value>
   </data>
   <data name="IsHiddenSettingTitle" xml:space="preserve">
-    <value>Hidden Network</value>
+    <value>隠しネットワーク</value>
   </data>
   <data name="IsHiddenSettingDescription" xml:space="preserve">
-    <value>Enable if your network doesn't broadcast its SSID</value>
+    <value>ネットワークがSSIDをブロードキャストしない場合に有効にしてください</value>
   </data>
   <data name="SearchKeywords" xml:space="preserve">
-    <value>SSID WPA WEP</value>
+    <value>wifi qrコード ジェネレーター 無線 ネットワーク 共有 パスワード 接続 バーコード</value>
   </data>
   <data name="Configuration" xml:space="preserve">
-    <value>Configuration</value>
+    <value>設定</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Error</value>
+    <value>エラー</value>
   </data>
 </root>

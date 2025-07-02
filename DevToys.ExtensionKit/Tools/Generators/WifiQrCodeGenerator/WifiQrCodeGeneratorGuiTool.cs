@@ -95,7 +95,8 @@ internal sealed partial class WifiQrCodeGeneratorGuiTool : IGuiTool, IDisposable
                     Stack()
                         .Vertical()
                         .WithChildren(
-                            _errorInfoBar.Error().Close(),
+                            _errorInfoBar.Title(WifiQrCodeGenerator.ErrorTitle).Error().Close(),
+                            Label().Text(WifiQrCodeGenerator.Configuration),
                             Setting("wifi-security-type-setting")
                                 .Icon("FluentSystemIcons", '\uF384')
                                 .Title(WifiQrCodeGenerator.SecurityTypeSettingTitle)
@@ -127,7 +128,7 @@ internal sealed partial class WifiQrCodeGeneratorGuiTool : IGuiTool, IDisposable
                             Stack()
                                 .Vertical()
                                 .WithChildren(
-                                    Label().Text(WifiQrCodeGenerator.ConfigurationTitle).Style(UILabelStyle.Subtitle),
+                                    Label().Text(WifiQrCodeGenerator.InputTitle).Style(UILabelStyle.Subtitle),
 
                                     _ssidInput
                                         .Title(WifiQrCodeGenerator.NetworkNameTitle)

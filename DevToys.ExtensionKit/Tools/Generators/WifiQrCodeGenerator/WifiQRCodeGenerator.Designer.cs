@@ -70,11 +70,11 @@ namespace DevToys.ExtensionKit.Tools.Generators.WifiQrCodeGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WiFi QR Code Generator.
+        ///   Looks up a localized string similar to Configuration.
         /// </summary>
-        internal static string ConfigurationTitle {
+        internal static string Configuration {
             get {
-                return ResourceManager.GetString("ConfigurationTitle", resourceCulture);
+                return ResourceManager.GetString("Configuration", resourceCulture);
             }
         }
         
@@ -88,6 +88,15 @@ namespace DevToys.ExtensionKit.Tools.Generators.WifiQrCodeGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to generate QR code. Please check your input.
         /// </summary>
         internal static string GenerationFailedError {
@@ -97,7 +106,16 @@ namespace DevToys.ExtensionKit.Tools.Generators.WifiQrCodeGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to test.
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string InputTitle {
+            get {
+                return ResourceManager.GetString("InputTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable if your network doesn't broadcast its SSID.
         /// </summary>
         internal static string IsHiddenSettingDescription {
             get {
@@ -151,7 +169,7 @@ namespace DevToys.ExtensionKit.Tools.Generators.WifiQrCodeGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wifi qr code generator wireless network sharing password connect barcode.
+        ///   Looks up a localized string similar to SSID WPA WEP.
         /// </summary>
         internal static string SearchKeywords {
             get {
@@ -160,7 +178,7 @@ namespace DevToys.ExtensionKit.Tools.Generators.WifiQrCodeGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to test.
+        ///   Looks up a localized string similar to Select the security type for your WiFi network.
         /// </summary>
         internal static string SecurityTypeSettingDescription {
             get {
@@ -169,7 +187,7 @@ namespace DevToys.ExtensionKit.Tools.Generators.WifiQrCodeGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wifi Security.
+        ///   Looks up a localized string similar to WiFi Security.
         /// </summary>
         internal static string SecurityTypeSettingTitle {
             get {
