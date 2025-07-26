@@ -113,21 +113,21 @@ internal sealed partial class UnicodeEncoderDecoderGuiTool : IGuiTool
                         .Vertical()
                         .WithChildren(
                             _errorInfoBar.Error().Close(),
-                            Label().Text("Settings"),
+                            Label().Text(UnicodeEncoderDecoder.Settings),
                             Setting("encode-mode")
                                 .Icon("FluentSystemIcons", '\uF18D')
-                                .Title("Encode Mode")
-                                .Description("Convert text to Unicode escape sequences.")
+                                .Title(UnicodeEncoderDecoder.EncodeModeTitle)
+                                .Description(UnicodeEncoderDecoder.EncodeModeDescription)
                                 .InteractiveElement(
                                     _conversionModeSwitch
-                                        .OnText("Encode")
-                                        .OffText("Decode")
+                                        .OnText(UnicodeEncoderDecoder.EncodeText)
+                                        .OffText(UnicodeEncoderDecoder.DecodeText)
                                         .OnToggle(OnConversionModeChanged)
                                 ),
                             Setting("encode-all-mode")
                                 .Icon("FluentSystemIcons", '\uED68')
-                                .Title("Encode All Characters (Encode mode only)")
-                                .Description("Convert all characters to Unicode escape sequences, including ASCII characters.")
+                                .Title(UnicodeEncoderDecoder.EncodeAllCharactersTitle)
+                                .Description(UnicodeEncoderDecoder.EncodeAllCharactersDescription)
                                 .Handle(
                                     _settingsProvider,
                                     EnableAllCharactersEncoding,
@@ -135,8 +135,8 @@ internal sealed partial class UnicodeEncoderDecoderGuiTool : IGuiTool
                                 ),
                             Setting("table-display-mode")
                                 .Icon("FluentSystemIcons", '\uF75E')
-                                .Title("Table Display Mode (Encode mode only)")
-                                .Description("Display Unicode information in a detailed table format.")
+                                .Title(UnicodeEncoderDecoder.TableDisplayModeTitle)
+                                .Description(UnicodeEncoderDecoder.TableDisplayModeDescription)
                                 .Handle(
                                     _settingsProvider,
                                     IsTableDisplay,
@@ -150,9 +150,9 @@ internal sealed partial class UnicodeEncoderDecoderGuiTool : IGuiTool
                     Stack()
                         .Vertical()
                         .WithChildren(
-                            Label().Text("Input").Style(UILabelStyle.Subtitle),
+                            Label().Text(UnicodeEncoderDecoder.Input).Style(UILabelStyle.Subtitle),
                             _inputText
-                                .Title("Input")
+                                .Title(UnicodeEncoderDecoder.InputTitle)
                                 .OnTextChanged(OnInputTextChanged)
                         )
                 ),
@@ -162,19 +162,19 @@ internal sealed partial class UnicodeEncoderDecoderGuiTool : IGuiTool
                     Stack()
                         .Vertical()
                         .WithChildren(
-                            Label().Text("Output").Style(UILabelStyle.Subtitle),
+                            Label().Text(UnicodeEncoderDecoder.Output).Style(UILabelStyle.Subtitle),
                             _outputText
-                                .Title("Result")
+                                .Title(UnicodeEncoderDecoder.Result)
                                 .ReadOnly(),
                             _outputDataGrid
-                                .Title("Unicode Information")
+                                .Title(UnicodeEncoderDecoder.UnicodeInformation)
                                 .Extendable()
                                 .WithColumns(
-                                    "Value",
-                                    "Code Point",
-                                    "UTF-8",
-                                    "UTF-16 (BE)",
-                                    "Category"
+                                    UnicodeEncoderDecoder.Value,
+                                    UnicodeEncoderDecoder.CodePoint,
+                                    UnicodeEncoderDecoder.UTF8,
+                                    UnicodeEncoderDecoder.UTF16BE,
+                                    UnicodeEncoderDecoder.Category
                                 )
                         )
 
@@ -302,7 +302,7 @@ internal sealed partial class UnicodeEncoderDecoderGuiTool : IGuiTool
         catch (Exception ex)
         {
             _logger.LogError(ex, "Unicode conversion error");
-            _errorInfoBar.Open().Description($"Conversion error: {ex.Message}");
+            _errorInfoBar.Open().Description(string.Format(UnicodeEncoderDecoder.ConversionError, ex.Message));
             _outputText.Text(string.Empty);
         }
     }

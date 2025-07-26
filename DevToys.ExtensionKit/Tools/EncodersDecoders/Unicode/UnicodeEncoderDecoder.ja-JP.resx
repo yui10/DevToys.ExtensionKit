@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,64 +118,64 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessibleName" xml:space="preserve">
-    <value>Unicode Encoder and Decoder tool</value>
+    <value>Unicode エンコーダー・デコーダー ツール</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Unicode Encoder / Decoder</value>
+    <value>Unicode エンコーダー / デコーダー</value>
   </data>
   <data name="LongDisplayTitle" xml:space="preserve">
-    <value>Unicode Encoder / Decoder</value>
+    <value>Unicode エンコーダー / デコーダー</value>
   </data>
   <data name="ShortDisplayTitle" xml:space="preserve">
-    <value>Unicode Encoder / Decoder</value>
+    <value>Unicode エンコーダー / デコーダー</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>設定</value>
   </data>
   <data name="EncodeModeTitle" xml:space="preserve">
-    <value>Encode Mode</value>
+    <value>エンコードモード</value>
   </data>
   <data name="EncodeModeDescription" xml:space="preserve">
-    <value>Convert text to Unicode escape sequences.</value>
+    <value>テキストをUnicodeエスケープシーケンスに変換します。</value>
   </data>
   <data name="EncodeText" xml:space="preserve">
-    <value>Encode</value>
+    <value>エンコード</value>
   </data>
   <data name="DecodeText" xml:space="preserve">
-    <value>Decode</value>
+    <value>デコード</value>
   </data>
   <data name="EncodeAllCharactersTitle" xml:space="preserve">
-    <value>Encode All Characters (Encode mode only)</value>
+    <value>すべての文字をエンコード（エンコードモードのみ）</value>
   </data>
   <data name="EncodeAllCharactersDescription" xml:space="preserve">
-    <value>Convert all characters to Unicode escape sequences, including ASCII characters.</value>
+    <value>ASCII文字を含むすべての文字をUnicodeエスケープシーケンスに変換します。</value>
   </data>
   <data name="TableDisplayModeTitle" xml:space="preserve">
-    <value>Table Display Mode (Encode mode only)</value>
+    <value>テーブル表示モード（エンコードモードのみ）</value>
   </data>
   <data name="TableDisplayModeDescription" xml:space="preserve">
-    <value>Display Unicode information in a detailed table format.</value>
+    <value>Unicode情報を詳細なテーブル形式で表示します。</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Input</value>
+    <value>入力</value>
   </data>
   <data name="InputTitle" xml:space="preserve">
-    <value>Input</value>
+    <value>入力</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Output</value>
+    <value>出力</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>結果</value>
   </data>
   <data name="UnicodeInformation" xml:space="preserve">
-    <value>Unicode Information</value>
+    <value>Unicode情報</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value>Value</value>
+    <value>値</value>
   </data>
   <data name="CodePoint" xml:space="preserve">
-    <value>Code Point</value>
+    <value>コードポイント</value>
   </data>
   <data name="UTF8" xml:space="preserve">
     <value>UTF-8</value>
@@ -184,9 +184,9 @@
     <value>UTF-16 (BE)</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>カテゴリ</value>
   </data>
   <data name="ConversionError" xml:space="preserve">
-    <value>Conversion error: {0}</value>
+    <value>変換エラー: {0}</value>
   </data>
 </root>

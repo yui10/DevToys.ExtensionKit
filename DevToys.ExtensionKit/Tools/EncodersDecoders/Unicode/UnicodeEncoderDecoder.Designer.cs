@@ -68,6 +68,42 @@ namespace DevToys.ExtensionKit.Tools.EncodersDecoders.Unicode {
                 return ResourceManager.GetString("AccessibleName", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Code Point.
+        /// </summary>
+        internal static string CodePoint {
+            get {
+                return ResourceManager.GetString("CodePoint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Conversion error: {0}.
+        /// </summary>
+        internal static string ConversionError {
+            get {
+                return ResourceManager.GetString("ConversionError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Decode.
+        /// </summary>
+        internal static string DecodeText {
+            get {
+                return ResourceManager.GetString("DecodeText", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Unicode Encoder / Decoder.
@@ -75,6 +111,69 @@ namespace DevToys.ExtensionKit.Tools.EncodersDecoders.Unicode {
         internal static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Convert all characters to Unicode escape sequences, including ASCII characters..
+        /// </summary>
+        internal static string EncodeAllCharactersDescription {
+            get {
+                return ResourceManager.GetString("EncodeAllCharactersDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Encode All Characters (Encode mode only).
+        /// </summary>
+        internal static string EncodeAllCharactersTitle {
+            get {
+                return ResourceManager.GetString("EncodeAllCharactersTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Convert text to Unicode escape sequences..
+        /// </summary>
+        internal static string EncodeModeDescription {
+            get {
+                return ResourceManager.GetString("EncodeModeDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Encode Mode.
+        /// </summary>
+        internal static string EncodeModeTitle {
+            get {
+                return ResourceManager.GetString("EncodeModeTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Encode.
+        /// </summary>
+        internal static string EncodeText {
+            get {
+                return ResourceManager.GetString("EncodeText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string Input {
+            get {
+                return ResourceManager.GetString("Input", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        internal static string InputTitle {
+            get {
+                return ResourceManager.GetString("InputTitle", resourceCulture);
             }
         }
         
@@ -86,6 +185,33 @@ namespace DevToys.ExtensionKit.Tools.EncodersDecoders.Unicode {
                 return ResourceManager.GetString("LongDisplayTitle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        internal static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        internal static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Unicode Encoder / Decoder.
@@ -93,6 +219,60 @@ namespace DevToys.ExtensionKit.Tools.EncodersDecoders.Unicode {
         internal static string ShortDisplayTitle {
             get {
                 return ResourceManager.GetString("ShortDisplayTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Display Unicode information in a detailed table format..
+        /// </summary>
+        internal static string TableDisplayModeDescription {
+            get {
+                return ResourceManager.GetString("TableDisplayModeDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Table Display Mode (Encode mode only).
+        /// </summary>
+        internal static string TableDisplayModeTitle {
+            get {
+                return ResourceManager.GetString("TableDisplayModeTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode Information.
+        /// </summary>
+        internal static string UnicodeInformation {
+            get {
+                return ResourceManager.GetString("UnicodeInformation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to UTF-16 (BE).
+        /// </summary>
+        internal static string UTF16BE {
+            get {
+                return ResourceManager.GetString("UTF16BE", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to UTF-8.
+        /// </summary>
+        internal static string UTF8 {
+            get {
+                return ResourceManager.GetString("UTF8", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
     }
