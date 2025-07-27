@@ -518,6 +518,18 @@ string? text = Input.AsT1OrDefault(); // string型として取得（失敗時は
 
 # コーディングガイドライン
 
+## 守るべき原則
+- **YAGNI原則**: 必要な機能のみ実装し、将来の機能追加を見越した過剰な実装は避ける
+- **KISS原則**: シンプルで理解しやすいコードを心がける
+- **SOLID原則**: オブジェクト指向設計の原則に従う
+  - **S**: 単一責任の原則 (Single Responsibility Principle)
+  - **O**: オープン/クローズドの原則 (Open/Closed Principle)
+  - **L**: リスコフの置換原則 (Liskov Substitution Principle)
+  - **I**: インターフェース分離の原則 (Interface Segregation Principle)
+  - **D**: 依存関係逆転の原則 (Dependency Inversion Principle)
+- **TDD原則**: テスト駆動開発を実践し、テストコードを先に書く
+- **CI/CD原則**: 継続的インテグレーションと継続的デリバリーを意識し、コードの品質を保つ
+
 ## 基本方針
 - **コメント**: 必要に応じて記述
 - **命名規則**: [Microsoft の命名規則](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/coding-style/coding-conventions)に従う
@@ -538,13 +550,13 @@ string? text = Input.AsT1OrDefault(); // string型として取得（失敗時は
    - `DevToys.ExtensionKit/Models/機能カテゴリ/` ディレクトリに配置
    - モデルクラスのテストコードは、必要な場合のみ実装
 
-4. **ツールのリソースファイル（ToolDisplayInformationで使用する文字列）を作成する**
-   - ツールディレクトリ内に `.resx` ファイルを配置
-   - 対応する `.Designer.cs` ファイルも生成される
-
-5. **ツールの UI を実装する**
+4. **ツールの UI を実装する**
    - GUIツールクラスを実装
    - DevToys API実装パターンに従う
+
+5. **ツールのリソースファイル（ToolDisplayInformationで使用する文字列）を作成する**
+   - ツールディレクトリ内に `.resx` ファイルを配置
+   - 対応する `.Designer.cs` ファイルも生成される
 
 6. **ツールのリソースファイルを使用して、UI の文字列を定義する**
    - リソースファイルからの文字列参照を設定
