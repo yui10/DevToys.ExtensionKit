@@ -15,6 +15,13 @@ This extension offers the following tools:
 
 - **IP Address Parser**: Analyze IP addresses and subnets to get network information, including subnet masks, CIDR notation, usable host ranges, and more.
 - **Chmod Calculator**: Calculate and convert Unix file permissions between symbolic notation (rwxr-xr--) and octal notation (754), and generate chmod commands.
+
+### Encoders & Decoders
+
+- **Unicode Encoder/Decoder**: Convert text to and from various Unicode escape sequences, including UTF-8, UTF-16. Supports hexadecimal and decimal formats.
+
+### Generators
+
 - **Wifi QR Code Generator**: Generate QR codes for Wi-Fi network configurations, supporting WEP, WPA, and open networks.
 
 ## Installation
