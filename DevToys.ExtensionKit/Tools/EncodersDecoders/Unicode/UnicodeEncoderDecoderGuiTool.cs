@@ -296,7 +296,7 @@ internal sealed partial class UnicodeEncoderDecoderGuiTool : IGuiTool
                 _outputDataGrid.WithRows([]); // Clear grid in decode mode
             }
 
-            // 出力テキストに結果を設定
+            // Set the result to the output text
             _outputText.Text(result);
         }
         catch (Exception ex)
