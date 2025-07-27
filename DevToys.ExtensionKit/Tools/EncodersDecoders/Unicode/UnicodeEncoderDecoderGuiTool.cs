@@ -7,7 +7,7 @@ namespace DevToys.ExtensionKit.Tools.EncodersDecoders.Unicode;
 [Name("UnicodeEncoder")]
 [ToolDisplayInformation(
     IconFontName = "FluentSystemIcons",
-    IconGlyph = '\uF2B7',
+    IconGlyph = '\uED37',
     GroupName = PredefinedCommonToolGroupNames.EncodersDecoders,
     ResourceManagerAssemblyIdentifier = nameof(DevToysExtensionKitResourceManagerAssemblyIdentifier),
     ResourceManagerBaseName = "DevToys.ExtensionKit.Tools.EncodersDecoders.Unicode.UnicodeEncoderDecoder",
