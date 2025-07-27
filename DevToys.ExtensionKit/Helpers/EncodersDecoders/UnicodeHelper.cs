@@ -94,7 +94,7 @@ public static partial class UnicodeHelper
         {
             var match = matches[i];
 
-            // マッチ前の通常テキスト部分をそのまま追加。
+            // Add the normal text portion before the match as-is.
             if (match.Index > lastIndex)
             {
                 result.Append(input.AsSpan(lastIndex, match.Index - lastIndex));
