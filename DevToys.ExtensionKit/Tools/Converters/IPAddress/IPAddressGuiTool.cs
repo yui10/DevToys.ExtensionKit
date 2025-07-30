@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using netIPAddress = System.Net.IPAddress;
-using DevToys.ExtensionKit.Models;
 using System.Text;
+using DevToys.ExtensionKit.Models.Converters;
 
 namespace DevToys.ExtensionKit.Tools.Converters.IPAddress;
 

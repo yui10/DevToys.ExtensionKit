@@ -1,7 +1,7 @@
-﻿using DevToys.ExtensionKit.Models;
+﻿using DevToys.ExtensionKit.Models.Converters;
 using netIPAddress = System.Net.IPAddress;
 
-namespace DevToys.ExtensionKit.Helpers;
+namespace DevToys.ExtensionKit.Helpers.Converters;
 
 internal static class IPAddressHelper
 {

@@ -1,6 +1,6 @@
-using DevToys.ExtensionKit.Helpers;
+using DevToys.ExtensionKit.Helpers.Converters;
 
-namespace DevToys.ExtensionKit.Tests;
+namespace DevToys.ExtensionKit.Tests.Helpers.Converters;
 
 public class IPAddressHelperTests
 {

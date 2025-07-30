@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace DevToys.ExtensionKit.Models;
+namespace DevToys.ExtensionKit.Models.Converters;
 
 /// <summary>
 /// A class representing integrated network information (including both CIDR and subnet information)
@@ -184,7 +184,7 @@ public class NetworkInfo
 
         for (int i = 0; i < subdivisionCount; i++)
         {
-            long subnetBase = networkBase + (i * subnetSize);
+            long subnetBase = networkBase + i * subnetSize;
 
             if (subnetBase > 0xFFFFFFFF)
             {
@@ -216,7 +216,7 @@ public class NetworkInfo
             }
             else
             {
-                maskBytes[i] = (byte)(255 << (8 - prefixLength) & 255);
+                maskBytes[i] = (byte)(255 << 8 - prefixLength & 255);
                 prefixLength = 0;
             }
         }
@@ -264,7 +264,7 @@ public class NetworkInfo
         int count = 0;
         for (int i = 0; i < 8; i++)
         {
-            if ((b & (1 << (7 - i))) != 0)
+            if ((b & 1 << 7 - i) != 0)
             {
                 count++;
             }

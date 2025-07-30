@@ -2,7 +2,7 @@ using DevToys.ExtensionKit.Helpers.Converters;
 using DevToys.ExtensionKit.Models.Converters;
 using Xunit;
 
-namespace DevToys.ExtensionKit.Tests;
+namespace DevToys.ExtensionKit.Tests.Helpers.Converters;
 
 public class ChmodHelperTests
 {
