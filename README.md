@@ -37,6 +37,9 @@ Issues and feedback are welcome in the [Issues section of the GitHub repository]
 Pull requests are also welcome.
 
 ## Release Notes
+[1.2.0]
+- Added Wifi QR Code Generator tool.
+- Added Unicode Encoder/Decoder tool.
 [1.1.0]
 - Improved the output of the network partitioning function in the IP Address Parser Tool.
 - Fixed ChmodCalculator UI to be easier to read.
